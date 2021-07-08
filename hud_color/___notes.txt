@@ -1,0 +1,7 @@
+Rushiomatsu wanted to add Kirby's Adventure style coloring to HUD bar
+
+
+1. Use BG7 as new hud palette
+
+2. Write pal7 into hud vram
+- Credits interfere with pal7 and white / black is forced written

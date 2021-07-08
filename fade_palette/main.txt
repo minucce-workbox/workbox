@@ -1,0 +1,453 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+; 68a9-6a17 = palette asm code
+
+
+org 0x6a17, 0x0b
+
+
+create_fade_tables:
+	push bc
+
+
+	ld a, 0x07					; wram bank 7
+	ldh (0x70), a
+
+
+	ld hl, 0xd000				; palette tables  (0x40 * 4 each)
+								; d000 = fade white
+								; d200 = fade black
+
+
+; =====================================================
+; =====================================================
+
+
+	ld c, 0x00					; 0% white intensity
+	call @fade_table
+
+
+	ld c, 0x0a					; 33.3% white intensity
+	call @fade_table
+
+
+	ld c, 0x15					; 66.6% white intensity
+	call @fade_table
+
+
+	ld c, 0x1f					; 100% white intensity
+	call @fade_table
+
+
+; =====================================================
+; =====================================================
+
+
+	ld c, 0x00					; 0% black intensity
+	call @fade_table
+
+
+	ld c, 0xf6					; 33.3% black intensity
+	call @fade_table
+
+
+	ld c, 0xeb					; 66.6% black intensity
+	call @fade_table
+
+
+	ld c, 0xe1					; 100% black intensity
+	call @fade_table
+
+
+; ==========================================================
+; ==========================================================
+
+
+	ld a, 0x80					; wipe color table
+	ldh (0x68), a
+	ldh (0x6a), a
+
+
+
+	ld b, 0x20					; 32 colors
+	ld a, 0xff
+
+
+@@loop:
+	ldh (0x69), a
+	ldh (0x69), a
+
+	ldh (0x6b), a
+	ldh (0x6b), a
+
+
+	dec b
+	jr nz, @@loop
+
+
+; ==========================================================
+; ==========================================================
+
+
+	ld a, 0x01					; wram bank 1
+	ldh (0x70), a
+
+
+	pop bc
+	ret
+
+
+
+; ////////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////////
+
+
+
+@fade_table:
+	ld a, 0x80					; reset palette index
+	ldh (0x68), a
+	ldh (0x6a), a
+
+
+	ld b, 0x08					; 8 palettes
+
+
+@@loop:
+	call @fade_bgp_color
+	call @fade_obj_color
+
+	call @fade_bgp_color
+	call @fade_obj_color
+
+	call @fade_bgp_color
+	call @fade_obj_color
+
+	call @fade_bgp_color
+	call @fade_obj_color
+
+
+	dec b
+	jr nz, @@loop
+
+	ret
+
+
+
+; ########################################################
+; ########################################################
+
+
+
+@fade_bgp_color:
+	push hl
+
+
+	ldh a, (0x69)				; read low
+	ld l, a
+	ldh (0x69), a
+
+
+	ldh a, (0x69)				; read high
+	ld h, a
+	ldh (0x69), a
+
+
+	jr @fade_color
+
+
+
+; ////////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////////
+
+
+
+@fade_obj_color:
+	push hl
+
+
+	ldh a, (0x6b)				; read low
+	ld l, a
+	ldh (0x6b), a
+
+
+	ldh a, (0x6b)				; read high
+	ld h, a
+	ldh (0x6b), a
+
+
+
+; ////////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////////
+
+
+
+@fade_color:
+	ld a, l						; red  (---xxxxx)
+	and a, 0x1f
+	add a, c
+
+
+
+@@red_black:
+	cp a, 0xe0
+	jr c, @@red_white
+
+	xor a
+	jr @@red_done
+
+
+
+@@red_white:
+	cp a, 0x20
+	jr c, @@red_done
+
+	ld a, 0x1f
+
+
+
+@@red_done:
+	ld e, a
+
+
+; ==================================================
+; ==================================================
+
+
+	ld a, h						; blue  (-xxxxx--)
+	rra :: rra
+	and a, 0x1f
+	add a, c
+
+
+
+@@blue_black:
+	cp a, 0xe0
+	jr c, @@blue_white
+
+	xor a
+	jr @@blue_done
+
+
+
+@@blue_white:
+	cp a, 0x20
+	jr c, @@blue_done
+
+	ld a, 0x1f
+
+
+
+@@blue_done:
+	ld d, a
+
+
+; ==================================================
+; ==================================================
+
+
+	ld a, h						; green (------xx) (xxx-----)
+	sla l :: rla
+	sla l :: rla
+	sla l :: rla
+	and a, 0x1f
+	add a, c
+
+
+@@green_black:
+	cp a, 0xe0
+	jr c, @@green_white
+
+	xor a
+	jr @@green_done
+
+
+
+@@green_white:
+	cp a, 0x20
+	jr c, @@green_done
+
+	ld a, 0x1f
+
+
+
+@@green_done:
+	or a						; clear carry flag (not ccf = invert!)
+	rla :: rla :: rla
+	rla :: rl d
+	rla :: rl d
+	or a, e
+	ld e, a
+
+
+; ================================================
+; ================================================
+
+
+	pop hl						; cache color
+
+	ld a, e
+	ldi (hl), a
+
+	ld a, d
+	ldi (hl), a
+
+	ret
+
+
+warnpc 0x6b00
+
+
+
+; #################################################################
+; #################################################################
+
+
+
+org 0x1f2d, 0x00
+
+
+do_fade:
+	ldh a, (0x90)				; 0 = white
+	bit 2, e					; 1 = black
+	jr nz, @@fade_black
+
+
+
+@@fade_white:
+	ld h, 0xd0
+	jr @@fade_type
+
+
+
+@@fade_black:
+	ld h, 0xd2
+
+
+; ====================================================
+; ====================================================
+
+
+@@fade_type:
+	ldh a, (0x90)				; 0 = fade-in
+	bit 6, a					; 1 = fade-out
+	jr nz, @@fade_out
+
+
+
+@@fade_in:
+	xor a, 0x03
+
+
+
+@@fade_out:
+	and a, 0x03
+	rra							; 0x80 tables
+	rra
+	ld l, a
+
+	ld a, h
+	adc a, 0x00
+	ld h, a
+
+
+; ============================================================
+; ============================================================
+
+
+fade_start:
+	ld a, 0x07					; wram bank 7
+	ldh (0x70), a
+
+
+	ld a, 0x80					; reset index
+	ldh (0x68), a
+	ldh (0x6a), a
+
+
+	ld b, 32*2 / 2
+
+
+@@loop:
+	call @@wait_vram			; bgp color
+	ldh (0x69), a
+
+	call @@wait_vram
+	ldh (0x69), a
+
+
+	call @@wait_vram			; obj color
+	ldh (0x6b), a
+
+	call @@wait_vram
+	ldh (0x6b), a
+
+
+	dec b
+	jr nz, @@loop
+
+
+	ld a, 0x01					; wram bank 1
+	ldh (0x70), a
+
+	ret
+
+
+
+; /////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////
+
+
+
+@@wait_vram:
+	ldh a, (0x41)
+	and a, 0x02
+	jr nz, @@wait_vram
+
+	ldi a, (hl)
+	ret
+
+
+
+; /////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////
+
+
+
+credits_unfade1:
+	ld hl, 0xd080
+	jr fade_start
+
+
+credits_unfade2:
+	ld hl, 0xd040
+	jr fade_start
+
+
+credits_unfade3:
+	ld hl, 0xd000
+	jr fade_start
+
+
+
+warnpc 0x1fab
+
+
+
+; //////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////
+
+
+
+org 0x4ae1, 0x06
+	call credits_unfade1
+
+
+org 0x4aef, 0x06
+	call credits_unfade2
+
+
+org 0x4afd, 0x06
+	call credits_unfade3

@@ -1,0 +1,4 @@
+During fade effect, LCD is turned off; this creates brief white flash during dark fades
+
+
+Keep screen on and write tilemaps to vram during blanking periods

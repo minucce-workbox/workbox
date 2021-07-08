@@ -1,0 +1,4 @@
+When entering / exiting rooms, a fade effect is missing from DX builds
+
+
+Tables are pre-computed at run-time and stored into RAM for fast color changing.
