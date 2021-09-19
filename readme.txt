@@ -5,7 +5,7 @@ Kirby's Dream Land (USA, Europe)
 
 
 Latest:
-2021-09-18
+2021-09-19
 
 
 
@@ -16,6 +16,14 @@ ______________________________________________________________
 black_fade
 
 *  Fixes brief white flicker glitch during dark room transitions
+
+
+
+
+double_speed
+
+*  Fixes music timer during transition
+*  Fixes cpu speed after soft reset
 
 
 
@@ -40,6 +48,9 @@ _______________________________________________
 
 
 Commits:
+
+
+4 - double_speed released
 
 
 3 - black_fade released

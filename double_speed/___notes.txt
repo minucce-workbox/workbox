@@ -1,0 +1,8 @@
+During fade transitions, LCD is turned off and game switches to music timer
+-  Music plays fast in double speed mode
+-  Use 1/2 timer value to compensate
+
+
+
+During soft reset, game does not turn on double speed mode
+-  Turn on flag earlier in boot cycle
