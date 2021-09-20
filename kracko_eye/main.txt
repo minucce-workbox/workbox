@@ -1,0 +1,7 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x6880, 0x0b
+	db 0x00				; Kracko small eye color

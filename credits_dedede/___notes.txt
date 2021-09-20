@@ -1,0 +1,2 @@
+Extra game credits have corrupt Dedede sprite
+-  Original hacker did not update ptr to moved data
