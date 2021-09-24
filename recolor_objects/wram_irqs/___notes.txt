@@ -1,0 +1,5 @@
+Extra wram banks are being used and should be saved during interrupt routines
+
+
+Ending credits changed window during active render
+-  Updated to blanking period

@@ -1,0 +1,5 @@
+Mono has flashing effect for sprites, powerups, stars
+-  Game does clever palette cycling
+
+
+Simulate by switching between 2 similar palettes

@@ -1,0 +1,50 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x0040, 0x0
+
+	push af
+	push bc
+	push de
+	push hl
+
+	jp @vblank_start
+
+warnpc 0x0048
+
+
+
+; #######################################################
+; #######################################################
+
+
+
+;
+; Save wram bank during interrupts
+;
+
+
+org 0x1d16, 0x0
+
+@vblank_start:
+
+	call save_wram
+	nop
+
+warnpc 0x1d1a
+
+
+
+; ////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////
+
+
+
+org 0x1d98, 0x0
+
+	pop af						; old wram
+	jp irq_exit
+
+warnpc 0x1d9d

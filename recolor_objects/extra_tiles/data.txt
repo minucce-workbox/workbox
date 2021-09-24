@@ -1,0 +1,21 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x7e00, 0x0b
+.align 0x10
+
+
+
+extra_tiles_data:
+
+	.include "red_fireball/data.txt"		; 1:00-03
+	.include "kracko_eye/data.txt"			; 1:04-07
+
+extra_tiles_data_end:
+
+
+
+.align 1
+warnpc 0x7f00

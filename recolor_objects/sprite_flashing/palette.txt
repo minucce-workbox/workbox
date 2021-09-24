@@ -1,0 +1,86 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x1924, 0x0
+
+	call @sprite_flashing
+
+warnpc 0x1927
+
+
+
+; /////////////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////////////
+
+
+
+org 0x3efb, 0x0
+
+
+@palette_swap:
+	db 0x00 ^ 0x01				; kirby, 1up
+	db 0x01 ^ 0x07				; star
+	db 0x02 ^ 0x03				; lololo
+	db 0x03 ^ 0x00				; wizzer
+	db 0x04 ^ 0x06				; lalala
+	db 0x05 ^ 0x00
+	db 0x06 ^ 0x00
+	db 0x07 ^ 0x00
+
+
+warnpc 0x3f04
+
+
+
+; /////////////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////////////
+
+
+
+org 0x7f70, 0x0b
+
+
+;
+;  Swap palettes based on flag
+;
+
+
+@sprite_flashing:
+	ld a, (0xd06b)				; sprite bits
+	bit 4, a					; mono = flashing
+
+	res 4, a					; dx = end-of-sprite flag
+	ret z
+
+
+; ==============================================================
+; ==============================================================
+
+
+	ld a, (hl)					; old palette
+	and a, 0x07
+
+
+	push hl
+
+
+	add a, int(@palette_swap & 0xff)
+	ld l, a
+
+	ld a, int(@palette_swap / 0x100)
+	adc a, 0x00
+	ld h, a
+
+
+	ld a, (0xd06b)				; keep priority bit
+	and a, 0x80
+	or a, (hl)					; add new color
+
+
+	pop hl
+	ret
+
+
+warnpc 0x7fa0

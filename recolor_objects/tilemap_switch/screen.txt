@@ -1,0 +1,43 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+;
+;  Mt. Dedede - turn off screen for tile writing
+;
+
+
+org 0x1b17, 0x0
+
+	push hl
+
+
+	ld hl, 0xd049
+	ldi (hl), a
+	ldi (hl), a
+	ldi (hl), a
+	ldi (hl), a
+
+
+	call 0x1e74
+	pop hl
+
+warnpc 0x1b23
+
+
+
+; ########################################################
+; ########################################################
+
+
+
+;
+;  Keep screen on during room fade
+;
+
+								
+org 0x1a03, 0x0
+	nop
+	nop
+	nop

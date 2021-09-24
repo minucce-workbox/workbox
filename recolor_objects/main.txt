@@ -1,0 +1,23 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+
+.relativeinclude on
+
+
+	.include "change_palette/main.txt"
+	.include "credits_mountain/main.txt"
+	.include "extra_tiles/main.txt"
+	.include "hud_color/main.txt"
+	.include "screen_fade/main.txt"
+	.include "sprite_flashing/main.txt"
+	.include "tilemap_switch/main.txt"
+	.include "wram_irqs/main.txt"
+
+
+;	.include "hud_color/kirby_hud.txt"		; Revised only
+
+
+.relativeinclude off

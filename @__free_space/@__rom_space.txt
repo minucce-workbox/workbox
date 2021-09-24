@@ -1,0 +1,28 @@
+01
+7f00-7f98 = recolor_objects  (change_palette/palette)
+7f98-7faf = recolor_objects  (change_palette/load)
+7fb0-7fff = recolor_objects  (credits_mountain)
+
+
+
+
+06
+7fe0-8000 = hud_color
+
+
+
+
+0b
+6a17-6b30 = recolor_objects  (screen_fade/tables)
+
+....
+
+7e00-7f00 = recolor_objects  (extra_tiles/data)
+
+....
+
+7f40-7f70 = recolor_objects  (screen_fade/title)
+7f70-7fa0 = recolor_objects  (sprite_flashing/palette)
+7fa0-7fd0 = recolor_objects  (extra_tiles/upload)
+
+7fd0-8000 = hud_color

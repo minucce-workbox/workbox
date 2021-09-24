@@ -5,18 +5,11 @@ Kirby's Dream Land (USA, Europe)
 
 
 Latest:
-2021-09-20
+2021-09-23
 
 
 
 ______________________________________________________________
-
-
-
-black_fade
-
-*  Fixes brief white flicker glitch during dark room transitions
-
 
 
 
@@ -35,33 +28,18 @@ double_speed
 
 
 
-fade_palette
+recolor_objects
 
-*  Fixes palette effects with screen transitions
-
-
-
-
-hud_color
-
-*  Gives HUD color scheme from Kirby's Adventure
-   -  kirby_hud patch is for Revised only!  (clear Kirby icon)
-   -  Thanks to Rushiomatsu for palette / icon design
-
-
-
-
-kracko_eye
-
-*  Fixes left-half color of eye to match previous mini-boss
-
-
-
-
-recolor_sprites
-
+*  Fixes Lolo / Lala door fading
+*  Fixes bad mountain pixels during credits
 *  Fixes fireball color  (red)
+*  Fixes Kracko eye color, transparency
+*  Fixes missing screen fading  (title, in-game, credits, options)
+*  Fixes missing flashing effects  (Kirby, 1-Up, Stars, Apples, Waddle Doo, Wizzer, Scarfy)
+*  Fixes black fading glitch
+*  Fixes credits scrolling glitch
 
++  Adds Kirby's Adventure color scheme to hud  [thanks to Rushiomatsu for design]
 
 
 _______________________________________________
@@ -69,6 +47,32 @@ _______________________________________________
 
 
 Commits:
+
+
+8 - recolor_objects released
+
+    +  change_palette added
+
+    +  credits_mountain added
+
+    +  extra_tiles added
+       -  recolor_sprites merged
+          -  kracko_eye merged
+          -  red_fireball merged
+
+    *  hud_color merged
+
+    *  screen_fade added
+       -  fade_palette merged
+
+    +  sprite_flashing added
+
+    +  tilemap_switch added
+       -  black_fade merged
+          - vram timing fixed  (fireball destructible blocks)
+
+    +  wram_irqs added
+
 
 
 7 - recolor_sprites released

@@ -1,0 +1,9 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+	.include "kracko_eye/main.txt"
+	.include "red_fireball/main.txt"
+
+	.include "data.txt"

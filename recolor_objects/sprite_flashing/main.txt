@@ -1,0 +1,10 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+	.include "palette.txt"
+
+	.include "scarfy_flash/main.txt"
+	.include "waddle_flash/main.txt"
+	.include "wizzer_flash/main.txt"

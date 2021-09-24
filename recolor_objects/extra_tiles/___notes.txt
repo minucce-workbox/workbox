@@ -1,0 +1,5 @@
+We use vram bank 1 for new stuff:
+
+-  Fireball is shared with air puff and requires separate color data
+
+-  Kracko eye needs transparency sprite bits to look better

@@ -1,2 +1,0 @@
-Fireball: white --> red
--  Required creating new sprite tiles in vram 1 for palette

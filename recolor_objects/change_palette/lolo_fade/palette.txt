@@ -1,0 +1,78 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+load_lolo_palette:
+	ld a, b
+	cp a, 0x01
+	jr nz, @@stage5
+
+
+	ld a, c							; 01-08 = lolo
+	cp a, 0x08
+	jr z, @@lolo
+
+
+	ld a, c							; 01-0e = lolo + lala
+	cp a, 0x0e
+	jr z, @@lolo
+
+	ret
+
+
+
+@@stage5:
+	cp a, 0x04						; 04-08 = lolo + lala
+	ret nz
+
+
+	ld a, c
+	cp a, 0x08
+	ret nz
+ 
+
+; ======================================================
+; ======================================================
+
+
+@@lolo:
+	ld hl, 0xd036				; obj 3  (50% dark)
+
+	ld a, int((0x00 << 5) | (0x0c << 0) & 0xff)
+	ldi (hl), a
+
+	ld a, int((0x00 << 3) | (0x00 >> 3) & 0xff)
+	ldi (hl), a
+
+	inc l
+	inc l
+
+	ld a, int((0x00 << 5) | (0x00 << 0) & 0xff)
+	ldi (hl), a
+
+	ld a, int((0x08 << 3) | (0x00 >> 3) & 0xff)
+	ldi (hl), a
+
+
+
+@@lala:
+	ld hl, 0xd066				; obj 6  (50% dark)
+
+	ld a, int((0x05 << 5) | (0x0c << 0) & 0xff)
+	ldi (hl), a
+
+	ld a, int((0x00 << 3) | (0x05 >> 3) & 0xff)
+	ldi (hl), a
+
+	inc l
+	inc l
+
+	ld a, int((0x00 << 5) | (0x0f << 0) & 0xff)
+	ldi (hl), a
+
+	ld a, int((0x00 << 3) | (0x00 >> 3) & 0xff)
+	ldi (hl), a
+
+
+	ret
