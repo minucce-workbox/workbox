@@ -3,18 +3,20 @@
 */
 
 
-
 .relativeinclude on
 
 
-	.include "change_palette/main.txt"
-	.include "credits_mountain/main.txt"
+	.include "black_screen/main.txt"
+	.include "ending_scene/main.txt"
 	.include "extra_tiles/main.txt"
 	.include "hud_color/main.txt"
+	.include "room_palette/main.txt"
 	.include "screen_fade/main.txt"
 	.include "sprite_flashing/main.txt"
-	.include "tilemap_switch/main.txt"
 	.include "wram_irqs/main.txt"
+
+
+	.include "@__free_01.txt"
 
 
 ;	.include "hud_color/kirby_hud.txt"		; Revised only

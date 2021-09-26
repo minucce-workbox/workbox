@@ -68,5 +68,4 @@ save_wram:
 	jp (hl)						; ret
 
 
-freepc 0x1e67
-
+warnpc 0x1e67

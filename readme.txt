@@ -1,16 +1,19 @@
 Kirby's Dream Land (USA, Europe)
 -  DX
--  Revisited
+-  Revised
 
 
 
 Latest:
-2021-09-23
+2021-09-25
 
 
 
 ______________________________________________________________
 
+
+
+Basic:
 
 
 credits_dedede
@@ -36,10 +39,33 @@ recolor_objects
 *  Fixes Kracko eye color, transparency
 *  Fixes missing screen fading  (title, in-game, credits, options)
 *  Fixes missing flashing effects  (Kirby, 1-Up, Stars, Apples, Waddle Doo, Wizzer, Scarfy)
-*  Fixes black fading glitch
+*  Fixes black screen glitch
 *  Fixes credits scrolling glitch
+*  Fixes Kirby balloon color  (pink)
+*  Fixes credits sky  (yellow)
 
 +  Adds Kirby's Adventure color scheme to hud  [thanks to Rushiomatsu for design]
+
+
+
+///////////////////////////////////////////////
+
+
+
+dx_basic.ips
+-  Patch original game with DX first
+
+
+
+dx_revised_basic.ips
+-  Patch original game with revised first
+
+
+
+dx_revised_basic_lcd.ips
+-  Patch original game with revised first
+-  Reverts pink to lower LCD brightness
+
 
 
 _______________________________________________
@@ -47,6 +73,14 @@ _______________________________________________
 
 
 Commits:
+
+
+8.1 - recolor_objects updated
+
+    *  fixed post-credits fading
+    *  fixed ending balloon pink color
+    *  fixed credits sky yellow color
+
 
 
 8 - recolor_objects released
@@ -142,3 +176,11 @@ Comments:
 
    d086 = player hp
    d048 = 00  (opens door to Dedede)
+
+
+   room start addresses
+   - 388e = stage 1  (04 = whispy)
+   - 3895 = stage 2  (08 = lolo, 0e = lala)
+   - 389c = stage 3  (07 = kaboola)
+   - 38a3 = stage 4  (04 = kracko, 09 = kracko)
+   - 38aa = stage 5  (05 = ending)

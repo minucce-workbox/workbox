@@ -1,0 +1,4 @@
+Some bad pixels maybe from beta build
+
+
+Hotpatch new tiles after they're written to vram

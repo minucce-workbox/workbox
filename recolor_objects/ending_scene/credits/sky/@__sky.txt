@@ -1,0 +1,98 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+;
+;  New sky colors
+;
+
+
+ending_scene_credits_sky:
+	ld de, @sky_palette
+
+
+	ld hl, 0xd040					; bg4
+	call @copy
+
+	ld hl, 0xd0c0
+	call @copy
+
+	ld hl, 0xd140
+	call @copy
+
+
+; ===============================================================
+; ===============================================================
+
+
+	ld a, 0x01						; vram 1
+	ldh (0x4f), a
+
+
+	ld a, 0x04						; bg4
+	ld hl, 0x9800
+	ld b, 0x80
+
+
+@@loop:
+	ldi (hl), a
+
+	dec b
+	jr nz, @@loop
+
+
+	xor a							; vram 0
+	ldh (0x4f), a
+	
+
+	ret
+
+
+
+; //////////////////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////////////////
+
+
+
+@copy:
+	ld b, 0x03
+
+
+
+@@loop:
+	ld a, (de)
+	ldi (hl), a
+	inc de
+
+	ld a, (de)
+	ldi (hl), a
+	inc de
+
+	inc l
+	inc l
+
+	dec b
+	jr nz, @@loop
+
+	ret
+
+
+
+; //////////////////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////////////////
+
+
+
+@sky_palette:
+	.dh 0x03ff					; yellow  (1f, 1f, 00)
+	.dh 0x0c1f					; red     (1f, 00, 03)
+	.dh 0x013f					; orange  (1f, 09, 00)
+
+	.dh 0x2bff					; yellow  (1f, 1f, 0a)
+	.dh 0x355f					; red     (1f, 0a, 0d)
+	.dh 0x2a7f					; orange  (1f, 13, 0a)
+
+	.dh 0x57ff					; yellow  (1f, 1f, 15)
+	.dh 0x62bf					; red     (1f, 15, 18)
+	.dh 0x57df					; orange  (1f, 1e, 15)

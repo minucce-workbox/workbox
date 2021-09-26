@@ -1,0 +1,37 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+;
+;  Change palettes #s
+;
+
+
+
+; left  (flashing)
+
+
+org 0x5fd8, 0x0b
+	db 0x00 | 0x00
+
+
+org 0x5fdc, 0x0b
+	db 0x10 | 0x00
+
+
+
+; /////////////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////////////
+
+
+
+; right  (flashing)
+
+
+org 0x5ff0, 0x0b
+	db 0x20 | 0x00
+
+
+org 0x5ff4, 0x0b
+	db 0x30 | 0x00

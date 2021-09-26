@@ -1,0 +1,15 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x4e00, 0x01
+
+
+	.include "ending_scene/@__free_01.txt"
+	.include "extra_tiles/@__free_01.txt"
+	.include "room_palette/@__free_01.txt"
+	.include "screen_fade/@__free_01.txt"
+
+
+warnpc 0x7fe0

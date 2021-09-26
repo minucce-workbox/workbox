@@ -3,68 +3,13 @@
 */
 
 
-org 0x401d, 0x6
+org 0x401d, 0x06
 
-	ld a, int(orga(@wipe_palette) / 0x4000)
+	ld a, int(orga(screen_fade_title) / 0x4000)
 
-	ld hl, @wipe_palette
+	ld hl, screen_fade_title
 	push hl
 
 	jp 0x20d3
 
 warnpc 0x4028
-
-
-
-; ///////////////////////////////////////////////////////////
-; ///////////////////////////////////////////////////////////
-
-
-
-org 0x7f40, 0x0b
-
-
-@wipe_palette:
-	ld a, 0x80					; reset color index
-	ldh (0x68), a
-	ldh (0x70), a
-
-	ld a, 0xff					; white
-	ld c, 0x20
-
-
-@@loop:
-	ldh (0x69), a				; bgp
-	ldh (0x69), a
-
-	ldh (0x6b), a				; obj
-	ldh (0x6b), a
-
-
-	dec c
-	jr nz, @@loop
-
-
-; ============================================================
-; ============================================================
-
-
-	ld hl, 0x4000					; unload tiles
-	ld de, 0x8000
-	ld c, 0x02
-	call 0x20c1
-
-
-; ============================================================
-; ============================================================
-
-
-	ld a, 0x06
-
-	ld hl, 0x4028
-	push hl
-
-	jp 0x20d3
-
-
-warnpc 0x7f70

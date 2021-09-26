@@ -1,4 +1,0 @@
-Lolo boss uses sprite flashing bit, but standard palettes won't make door fading work  (blue, red)
-
-
-After every screen fade-out, we check room # and swap palettes if needed

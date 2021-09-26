@@ -7,7 +7,7 @@
 
 
 ;
-; Vblank (off)
+;  Create palette fading tables  (white, black)
 ;
 
 

@@ -207,4 +207,4 @@ load_room_tilemap:
 	ret
 
 
-freepc 0x1fab
+warnpc 0x1fab
