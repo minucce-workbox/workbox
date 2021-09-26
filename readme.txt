@@ -83,6 +83,12 @@ _______________________________________________
 Commits:
 
 
+8.3 - recolor_objects updated
+
+    *  fix rare tile corruption
+
+
+
 8.2 - better_loading released
 
 

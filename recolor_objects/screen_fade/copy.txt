@@ -167,9 +167,9 @@ load_room_tilemap:
 	ldh (0x4f), a					; vram bank
 
 
-	call @@wait_vram				; upper row
+	call @wait_vram					; upper row
 	inc e
-	call @@wait_vram
+	call @wait_vram
 
 
 	ld a, e							; switch vram rows
@@ -177,9 +177,9 @@ load_room_tilemap:
 	ld e, a
 
 
-	call @@wait_vram				; lower row
+	call @wait_vram					; lower row
 	inc e
-	call @@wait_vram
+	call @wait_vram
 
 
 	ret
@@ -191,10 +191,15 @@ load_room_tilemap:
 
 
 
-@@wait_vram:
+@wait_vram:
+	di						; avoid rare irq
+
+
+
+@@loop:
 	ldh a, (0x41)					; wait blanking
 	and a, 0x02
-	jr nz, @@wait_vram
+	jr nz, @@loop
 
 
 ; ==========================================================
@@ -204,7 +209,7 @@ load_room_tilemap:
 	ldi a, (hl)						; write vram
 	ld (de), a
 
-	ret
+	reti
 
 
 warnpc 0x1fab

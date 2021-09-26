@@ -1,0 +1,58 @@
+/*
+	Z80 armips assembler by Prof9
+	https://github.com/Prof9/armips/tree/gameboy
+*/
+
+
+
+.gb
+.open "Kirby's Dream Land (USA, Europe).gb",0
+
+
+
+.relativeinclude on
+
+
+	.include "helper.txt"
+
+
+.relativeinclude off
+
+
+
+
+.definelabel FULL_BUILD, 9
+
+
+
+; //////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////
+
+
+
+.if FULL_BUILD >= 1
+
+
+/*	Basic		*/
+
+
+	.include "better_loading/main.txt"
+	.include "credits_dedede/main.txt"
+	.include "double_speed/main.txt"
+
+	.include "recolor_objects/main.txt"
+
+
+	.include "dx_revised/kirby_hud.txt"		; Revised only
+
+
+.endif
+
+
+
+; //////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////
+
+
+
+.close

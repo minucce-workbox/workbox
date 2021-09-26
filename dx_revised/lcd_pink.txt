@@ -1,0 +1,24 @@
+/*
+	Code should be used only for educational, documentation and modding purposes.
+*/
+
+
+
+;
+; LCD pink color
+;
+
+
+.notice "Revised - LCD pink color"
+
+
+org 0x68b7, 0xb
+	ld a, 0x68
+
+
+org 0x6959, 0xb
+	ld a, 0x68
+
+
+org 0x697a, 0xb
+	ld a, 0x68

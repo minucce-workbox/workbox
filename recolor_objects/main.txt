@@ -20,7 +20,4 @@
 	.include "@__free_01.txt"
 
 
-;	.include "hud_color/kirby_hud.txt"		; Revised only
-
-
 .relativeinclude off
