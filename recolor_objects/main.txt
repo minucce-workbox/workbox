@@ -10,6 +10,7 @@
 	.include "ending_scene/main.txt"
 	.include "extra_tiles/main.txt"
 	.include "hud_color/main.txt"
+	.include "kracko_door/main.txt"
 	.include "room_palette/main.txt"
 	.include "screen_fade/main.txt"
 	.include "sprite_flashing/main.txt"

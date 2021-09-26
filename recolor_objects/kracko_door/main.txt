@@ -1,0 +1,7 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x7577, 0x02
+	.db 0x00				; miscolored pixel

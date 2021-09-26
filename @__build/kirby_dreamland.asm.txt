@@ -36,8 +36,9 @@
 /*	Basic		*/
 
 
-	.include "double_speed/main.txt"
+	.include "better_loading/main.txt"
 	.include "credits_dedede/main.txt"
+	.include "double_speed/main.txt"
 
 	.include "recolor_objects/main.txt"
 

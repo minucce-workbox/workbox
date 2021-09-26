@@ -5,7 +5,7 @@ Kirby's Dream Land (USA, Europe)
 
 
 Latest:
-2021-09-25
+2021-09-26
 
 
 
@@ -14,6 +14,13 @@ ______________________________________________________________
 
 
 Basic:
+
+
+better_loading
+
+*  Small improvement to loading times
+
+
 
 
 credits_dedede
@@ -43,6 +50,7 @@ recolor_objects
 *  Fixes credits scrolling glitch
 *  Fixes Kirby balloon color  (pink)
 *  Fixes credits sky  (yellow)
+*  Fixes kracko's door  (blue pixel)
 
 +  Adds Kirby's Adventure color scheme to hud  [thanks to Rushiomatsu for design]
 
@@ -73,6 +81,15 @@ _______________________________________________
 
 
 Commits:
+
+
+8.2 - better_loading released
+
+
+    - recolor_objects updated
+
+    *  fixed kracko's door color
+
 
 
 8.1 - recolor_objects updated
