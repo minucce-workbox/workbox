@@ -2,7 +2,7 @@ Kirby's Dream Land DX - Service Repair
 
 
 Latest:
-2021-09-27
+2021-09-28
 
 
 
@@ -15,12 +15,22 @@ Option 1: Kirby's Dream Land DX  (GreenAndACat)
 -  Original Kirby's Dream Land (USA, Europe) rom
 
 
+
 -  Apply patch 1.3
    https://www.romhacking.net/hacks/5213/
 
    Then dx_basic.ips
 
 
+
+-  Optional add-ons:
+
+   *  revised/original_hud
+      -  Reverts hud to original DX look
+
+
+
+//////////////////////////////////////////////////////////////////
 
 
 
@@ -29,10 +39,12 @@ Option 2: Kirby's Dream Land DX - Revised  (ShadowOne333)
 -  Original Kirby's Dream Land (USA, Europe) rom
 
 
+
 -  Apply patch 1.0
    https://www.romhacking.net/hacks/5635/
 
    Then dx_revised_basic.ips
+
 
 
 -  Optional add-ons:
@@ -43,6 +55,10 @@ Option 2: Kirby's Dream Land DX - Revised  (ShadowOne333)
 
    *  revised/kirby_hud
       -  Reverts kirby icon like original Revised
+
+
+   *  revised/original_hud
+      -  Reverts hud to original DX look
 
 
 
@@ -105,6 +121,10 @@ _______________________________________________
 
 
 Commits:
+
+
+9.1 - original_hud released
+
 
 
 9 - sgb_border released

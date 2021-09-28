@@ -38,6 +38,7 @@
 
 	.include "dx_revised/kirby_hud_filled.txt"	; Revised only
 	.include "dx_revised/lcd_pink.txt"		; Revised only
+	.include "dx_revised/hud_original.txt"
 
 
 .endif
