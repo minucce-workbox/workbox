@@ -3,7 +3,7 @@
 */
 
 
-org 0x4e00, 0x01
+.relativeinclude on
 
 
 	.include "ending_scene/@__free_01.txt"
@@ -12,4 +12,4 @@ org 0x4e00, 0x01
 	.include "screen_fade/@__free_01.txt"
 
 
-warnpc 0x7fe0
+.relativeinclude off

@@ -41,6 +41,9 @@
 	.include "double_speed/main.txt"
 
 	.include "recolor_objects/main.txt"
+	.include "sgb_border/main.txt"
+
+	.include "@__free_space/main.txt"
 
 
 .endif

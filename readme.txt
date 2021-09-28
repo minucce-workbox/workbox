@@ -1,11 +1,48 @@
-Kirby's Dream Land (USA, Europe)
--  DX
--  Revised
-
+Kirby's Dream Land DX - Service Repair
 
 
 Latest:
-2021-09-26
+2021-09-27
+
+
+
+//////////////////////////////////////////////////////////////////
+
+
+
+Option 1: Kirby's Dream Land DX  (GreenAndACat)
+
+-  Original Kirby's Dream Land (USA, Europe) rom
+
+
+-  Apply patch 1.3
+   https://www.romhacking.net/hacks/5213/
+
+   Then dx_basic.ips
+
+
+
+
+
+Option 2: Kirby's Dream Land DX - Revised  (ShadowOne333)
+
+-  Original Kirby's Dream Land (USA, Europe) rom
+
+
+-  Apply patch 1.0
+   https://www.romhacking.net/hacks/5635/
+
+   Then dx_revised_basic.ips
+
+
+-  Optional add-ons:
+
+   *  revised/lcd_pink
+      -  Changes pink to GBC LCD brightness
+
+
+   *  revised/kirby_hud
+      -  Reverts kirby icon like original Revised
 
 
 
@@ -56,23 +93,10 @@ recolor_objects
 
 
 
-///////////////////////////////////////////////
 
+sgb_border
 
-
-dx_basic.ips
--  Patch original game with DX first
-
-
-
-dx_revised_basic.ips
--  Patch original game with revised first
-
-
-
-dx_revised_basic_lcd.ips
--  Patch original game with revised first
--  Reverts pink to lower LCD brightness
++  Adds Kirby's Star Stacker themed border  [thanks to Rushiomatsu for design]
 
 
 
@@ -81,6 +105,10 @@ _______________________________________________
 
 
 Commits:
+
+
+9 - sgb_border released
+
 
 
 8.3 - recolor_objects updated
@@ -160,16 +188,17 @@ _______________________________________________
 
 Visit:
 
-*  https://github.com/minucce-yard/Kirbys_Dream_Land_GB
+*  Source Code
+   https://github.com/minucce-yard/Kirbys_Dream_Land_GB
 
 
 
 *  Kirby's Dream Land DX
-   http://www.romhacking.net/hacks/5213/
+   https://www.romhacking.net/hacks/5213/
 
 
    Kirby's Dream Land DX Revised
-   http://www.romhacking.net/hacks/5635/
+   https://www.romhacking.net/hacks/5635/
 
 
 

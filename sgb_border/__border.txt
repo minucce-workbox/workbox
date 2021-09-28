@@ -1,0 +1,96 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+;
+;  Upload sgb border
+;
+
+
+sgb_border:
+	call sgb_detect
+	jp z, @@exit
+
+
+
+	call sgb_init
+
+
+
+	call @border_upper			; load tiles 1
+
+	ld bc, 0x9900				; upload chr
+	call sgb_upload
+
+
+
+	call @border_lower			; load tiles 2
+
+	ld bc, 0x9901
+	call sgb_upload
+
+
+
+	call @border_tilemap		; load tilemap
+
+	ld bc, 0xa100
+	call sgb_upload
+
+
+; ========================================================
+; ========================================================
+
+
+@@exit:
+	ld a, 0x05
+
+	ld hl, 0x4c4a
+	push hl
+
+	jp 0x20d3
+
+
+
+; ////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////
+
+
+
+@border_upper:
+	ld a, int(orga(sgb_border_upper) / 0x4000)
+
+	ld hl, sgb_border_upper
+	push hl
+
+	jp 0x20d3+3
+
+
+
+; ////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////
+
+
+
+@border_lower:
+	ld a, int(orga(sgb_border_lower) / 0x4000)
+
+	ld hl, sgb_border_lower
+	push hl
+
+	jp 0x20d3+3
+
+
+
+; ////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////
+
+
+
+@border_tilemap:
+	ld a, int(orga(sgb_border_tilemap) / 0x4000)
+
+	ld hl, sgb_border_tilemap
+	push hl
+
+	jp 0x20d3+3

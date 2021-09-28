@@ -1,0 +1,12 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+.relativeinclude on
+
+
+	.include "__border_upper.txt"
+
+
+.relativeinclude off

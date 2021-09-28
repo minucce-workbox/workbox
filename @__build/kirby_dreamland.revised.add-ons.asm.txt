@@ -36,14 +36,7 @@
 /*	Basic		*/
 
 
-	.include "better_loading/main.txt"
-	.include "credits_dedede/main.txt"
-	.include "double_speed/main.txt"
-
-	.include "recolor_objects/main.txt"
-
-
-	.include "dx_revised/kirby_hud.txt"		; Revised only
+	.include "dx_revised/kirby_hud_filled.txt"	; Revised only
 	.include "dx_revised/lcd_pink.txt"		; Revised only
 
 

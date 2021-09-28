@@ -1,0 +1,13 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+.relativeinclude on
+
+
+	.include "__border.txt"
+	.include "__sgb.txt"
+
+
+.relativeinclude off
