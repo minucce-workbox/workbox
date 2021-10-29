@@ -1,6 +1,0 @@
-/*
-	Code should be used only for educational, documentation and modding purposes
-*/
-
-
-	.include "@__title.txt"

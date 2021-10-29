@@ -1,8 +1,0 @@
-/*
-	Code should be used only for educational, documentation and modding purposes
-*/
-
-
-	.include "tables.txt"
-	.include "copy.txt"
-	.include "title.txt"

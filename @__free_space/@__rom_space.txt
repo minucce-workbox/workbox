@@ -21,5 +21,20 @@
 6a17-6b30 = recolor_objects  (screen_fade/tables)  [#]
 
 
+7f80-7fa0 = extra_tiles  [title_dx, riding_star]
 7fa0-7fd0 = recolor_objects  (sprite_flashing)	[#]
 7fd0-8000 = hud_color  [#]
+
+
+
+00
+3dae-3dc7 = reclaimed  (screen_fade)
+3ee2-3eec = reclaimed  (double_speed)
+
+
+
+
+06
+4ae5-4b09 = reclaimed  (ending_scene credits)
+4c65-4c86 = reclaimed  (ending_scene credits)
+7df0-7e08 = reclaimed  (title screen fade)

@@ -21,7 +21,24 @@
 
 
 
-.definelabel FULL_BUILD, 9
+.ifndef BUILD_LEVEL
+
+	.definelabel BUILD_LEVEL, 9
+
+.endif
+
+
+
+.ifndef REVISED_HUD
+
+	.definelabel REVISED_HUD, 0
+
+.endif
+
+
+
+
+.definelabel DX_REVISED, 1
 
 
 
@@ -30,24 +47,32 @@
 
 
 
-.if FULL_BUILD >= 1
+.if BUILD_LEVEL >= 1
 
 
 /*	Basic		*/
 
 
-	.include "better_loading/main.txt"
-	.include "credits_dedede/main.txt"
-	.include "double_speed/main.txt"
-
-	.include "recolor_objects/main.txt"
-	.include "sgb_border/main.txt"
+	.include "dual_support/main.txt"
 
 	.include "@__free_space/main.txt"
 
 
-	.include "dx_revised/kirby_hud.txt"		; Revised only
+	.include "dual_support/dx_revised/normal_hud.txt"
 
+
+.endif
+
+
+
+; //////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////
+
+
+
+.if REVISED_HUD >= 1
+
+	.include "dual_support/dx_revised/revised_hud.txt"
 
 .endif
 

@@ -1,0 +1,10 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+	.include "loading.txt"
+	.include "ending.txt"
+
+	.include "sprites/main.txt"
+	.include "tiles/main.txt"

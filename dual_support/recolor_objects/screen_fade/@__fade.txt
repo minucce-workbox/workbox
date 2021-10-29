@@ -1,0 +1,188 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+;
+;  Write new palette fade colors
+;
+;  -  vblank (active) = safe
+
+
+screen_palette_fade:
+	ld a, (0xcaff)					; non-gbc
+	or a
+	jp nz, @gbc
+
+
+
+@gb:
+	ldh a, (0x90)
+
+	bit 2, e						; ff90(0,1) = (white, black)
+	jr nz, @@fade_black
+
+
+
+@@fade_white:
+	ld hl, @fade_white_table
+	jr @@fade_type
+
+
+
+@@fade_black:
+	ld hl, @fade_black_table
+
+
+; ====================================================
+; ====================================================
+
+
+@@fade_type:
+	bit 6, a						; (0,1) = (fade-in, fade-out)
+	jr nz, @@fade_out
+
+
+
+@@fade_in:
+	xor a, 0x03
+
+
+
+@@fade_out:
+	and a, 0x03
+	add a, a
+	add a, l
+	ld l, a
+
+
+	ld a, h
+	adc a, 0x00
+	ld h, a
+
+
+	ldi a, (hl)						; bgp, obj1
+	ldh (0x47), a
+	ldh (0x49), a
+	ld (0xd080), a
+
+
+	ldi a, (hl)						; obj0
+	ldh (0x48), a
+	ld (0xd081), a
+
+
+	ret
+
+
+
+@fade_white_table:
+	.db 0xe4, 0xd0
+	.db 0x90, 0x40
+	.db 0x40, 0x00
+	.db 0x00, 0x00
+
+
+
+@fade_black_table:
+	.db 0xe4, 0xd0
+	.db 0xf9, 0xf4
+	.db 0xfd, 0xfe
+	.db 0xff, 0xff
+
+
+
+; ////////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////////
+
+
+
+@gbc:
+	ldh a, (0x90)
+
+	bit 2, e						; ff90(0,1) = (white, black)
+	jr nz, @@fade_black
+
+
+
+@@fade_white:
+	ld h, 0xd0
+	jr @@fade_type
+
+
+
+@@fade_black:
+	ld h, 0xd2
+
+
+; ====================================================
+; ====================================================
+
+
+@@fade_type:
+	bit 6, a						; (0,1) = (fade-in, fade-out)
+	jr nz, @@fade_out
+
+
+
+@@fade_in:
+	xor a, 0x03
+
+
+
+@@fade_out:
+	and a, 0x03
+	rra								; 0x80 tables
+	rra
+	ld l, a
+
+
+	ld a, h
+	adc a, 0x00
+	ld h, a
+
+
+; ============================================================
+; ============================================================
+
+
+	ld a, 0x07						; wram bank 7
+	ldh (0x70), a
+
+
+	ld a, 0x80						; reset index
+	ldh (0x68), a
+	ldh (0x6a), a
+
+
+	ld b, 32*2 / 2
+
+
+
+@@loop:
+	ldi a, (hl)						; bgp color
+	ldh (0x69), a
+
+	ldi a, (hl)
+	ldh (0x69), a
+
+
+	ldi a, (hl)						; obj color
+	ldh (0x6b), a
+
+	ldi a, (hl)
+	ldh (0x6b), a
+
+
+	dec b
+	jr nz, @@loop
+
+
+; ============================================================
+; ============================================================
+
+
+	xor a							; wram bank 1
+	ldh (0x70), a
+
+	ret

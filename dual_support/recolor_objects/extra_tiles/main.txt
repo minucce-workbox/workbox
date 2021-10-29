@@ -1,0 +1,36 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x400b, 0x06
+
+	xor a
+	ld (0xd095), a
+	ld (0xd053), a
+
+
+; ================================================
+; ================================================
+
+
+	ld a, int(orga(extra_tiles) / 0x4000)
+
+	ld hl, extra_tiles
+	push hl
+
+	jp 0x20d3
+
+
+warnpc 0x401d
+
+
+
+; ################################################################
+; ################################################################
+
+
+
+	.include "kracko_eye/main.txt"
+	.include "red_fireball/main.txt"
+	.include "riding_star/main.txt"

@@ -1,0 +1,27 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+.relativeinclude on
+
+
+	.include "expand_rom.txt"
+
+
+; ===============================================
+; ===============================================
+
+
+	.include "mono_graphics/main.txt"
+
+
+	.include "better_loading/main.txt"
+	.include "credits_dedede/main.txt"
+	.include "double_speed/main.txt"
+
+	.include "recolor_objects/main.txt"
+	.include "sgb_border/main.txt"
+
+
+.relativeinclude off

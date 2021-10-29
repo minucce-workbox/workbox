@@ -1,0 +1,55 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x1906, 0x0
+
+	call @sprite_bank
+	nop
+	nop
+
+warnpc 0x190b
+
+
+
+; //////////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////////
+
+
+
+org 0xf0, 0x0
+
+@sprite_bank:
+	ld a, (0xcaff)
+	or a
+
+	ld a, 0x0b					; gbc = 0b
+	jr nz, @exit
+
+
+	ld a, 0x1b					; gb = 1b
+
+
+@exit:
+	ld (0xcf99), a
+	ret
+
+
+warnpc 0x100
+
+
+
+; ############################################################
+; ############################################################
+
+
+
+.relativeinclude off
+
+
+org 0x4000, 0x1b
+	.import "dual_support/mono_graphics/sprites/0b_4000.bin"
+
+
+.relativeinclude on

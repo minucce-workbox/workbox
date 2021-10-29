@@ -1,0 +1,7 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+	.include "@__fade.txt"
+	.include "@__title.txt"

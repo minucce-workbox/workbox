@@ -1,0 +1,125 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+;
+;  Scrolling tilemap
+;
+
+
+ending_scene_balloon_scroll:
+	bit 3, h							; 97xx = wrap around
+	jr nz, @tilemap
+
+	ld hl, 0x9be0						; vram bottom
+
+
+; ================================================================
+; ================================================================
+
+
+@tilemap:
+	ld a, (0xcaff)						; gbc only
+	or a
+	jr z, @exit
+
+
+
+	push hl
+	push bc
+
+
+	ld a, 0x01							; vram 1
+	ldh (0x4f), a
+
+
+	ld a, h
+	cp 0x98
+	jr nz, @lower_screen
+
+	ld a, l
+	cp 0x60
+	jr z, @edge_balloon					; 9866-986d
+	jr c, @middle_balloon				; 9800-9860
+	jr @wrap
+
+
+
+@lower_screen:
+	ld a, 0x9b
+	cp h
+	jr nz, @wrap
+
+
+	ld a, d
+	cp 0x56
+	jr c, @wrap
+
+
+	ld a, 0x00
+	cp l
+	jr z, @edge_balloon					; 9b00-9b20
+	jr @middle_balloon					; 9b20-9bf0
+
+
+; ===============================================================
+; ===============================================================
+
+
+@edge_balloon:
+	ld a, l
+	add a, 0x06
+	ld l, a
+
+	ld c, int(0x0d - 0x06 + 1)
+	jr @safe_write
+
+
+
+@middle_balloon:
+	ld a, l
+	add a, 0x03
+	ld l, a
+
+	ld c, int(0x10 - 0x03 + 1)
+
+
+
+@safe_write:
+	ldh a, (0x41)
+	and a, 0x02
+	jr nz, @safe_write
+
+
+	ld a, 0x06							; bg6
+	ldi (hl), a
+
+	dec c
+	jr nz, @safe_write
+
+
+; ===============================================================
+; ===============================================================
+
+
+@wrap:
+	pop bc
+	pop hl
+
+
+	xor a								; vram 0
+	ldh (0x4f), a
+
+
+
+@exit:
+	ld bc, 0x4a3c
+	push bc
+
+
+	ld bc, 0xcb00						; ram tilemap  (cb00-cb3b)
+
+
+	ld a, 0x6
+	jp 0x20d3

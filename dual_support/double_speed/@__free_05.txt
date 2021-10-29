@@ -1,0 +1,82 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+dual_support_model_check:
+	ld hl, 0xcafb					; id check
+
+
+	ldi a, (hl)
+	cp a, 'K'
+	jr nz, @first
+
+	ldi a, (hl)
+	cp a, 'D'
+	jr nz, @first
+
+	ldi a, (hl)						; soft reset  (KDLxx)
+	cp a, 'L'
+	jr z, @clear
+
+
+
+@first:
+	xor a							; no sgb
+	ld (0xcafe), a
+
+
+
+	ld a, b							; 0x11 = cgb / gba
+	cp a, 0x11
+	jr z, @gbc
+
+
+@gb:	
+	xor a
+	ld (0xcaff), a
+
+	jr @clear
+
+
+
+@gbc:
+	ld a, 0x01
+	ld (0xcaff), a
+
+	ldh (0x4d), a
+	stop
+
+
+; ===================================================
+; ===================================================
+
+
+@clear:
+	ld a, (0xcafe)					; save sgb
+	push af
+
+	ld a, (0xcaff)					; save model
+	push af
+
+
+	call 0x4ad6
+
+
+	pop af
+	ld (0xcaff), a
+
+	pop af
+	ld (0xcafe), a
+
+
+	ld a, 'K'						; restore id
+	ld (0xcafb), a
+
+	ld a, 'D'
+	ld (0xcafc), a
+
+	ld a, 'L'
+	ld (0xcafd), a
+
+	ret

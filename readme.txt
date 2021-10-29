@@ -1,8 +1,13 @@
-Kirby's Dream Land DX - Service Repair
+Kirby's Dream Land DX - Fluffy Repair Service
 
 
 Latest:
-2021-09-28
+2021-10-29
+
+
+
+Graphics and engine fixes for "Kirby's Dream Land DX Color hack"
+-  Also adds SGB border and GB mono support
 
 
 
@@ -12,21 +17,19 @@ Latest:
 
 Option 1: Kirby's Dream Land DX  (GreenAndACat)
 
--  Original Kirby's Dream Land (USA, Europe) rom
+
+-  Start with an original Kirby's Dream Land (USA, Europe) rom
 
 
 
--  Apply patch 1.3
+-  First apply patch 1.3 to your rom
    https://www.romhacking.net/hacks/5213/
 
-   Then dx_basic.ips
 
 
-
--  Optional add-ons:
-
-   *  revised/original_hud
-      -  Reverts hud to original DX look
+-  Next apply one of these patches:
+     DX Normal/basic.ips
+     DX Normal/plus.ips
 
 
 
@@ -36,29 +39,29 @@ Option 1: Kirby's Dream Land DX  (GreenAndACat)
 
 Option 2: Kirby's Dream Land DX - Revised  (ShadowOne333)
 
--  Original Kirby's Dream Land (USA, Europe) rom
+
+-  Start with an original Kirby's Dream Land (USA, Europe) rom
 
 
 
--  Apply patch 1.0
+-  First apply patch 1.0
    https://www.romhacking.net/hacks/5635/
 
-   Then dx_revised_basic.ips
+
+
+-  Next apply one of these patches:
+     DX Revised/basic.ips
+     DX Revised/plus.ips
+
+     DX Revised/basic - revised hud.ips
+     DX Revised/plus - revised hud.ips
 
 
 
--  Optional add-ons:
+-  Lastly optional add-ons:
 
-   *  revised/lcd_pink
-      -  Changes pink to GBC LCD brightness
-
-
-   *  revised/kirby_hud
-      -  Reverts kirby icon like original Revised
-
-
-   *  revised/original_hud
-      -  Reverts hud to original DX look
+   *  DX Revised/add-on/lcd_pink
+      -  Changes pink to work on real GBC LCD hardware
 
 
 
@@ -91,28 +94,48 @@ double_speed
 
 
 
+dual_support
+
+*  Adds Gameboy monochrome support plus engine fixes
+*  Fixes post-credits flicker  (mono)
+
+
+
+
 recolor_objects
 
-*  Fixes Lolo / Lala door fading
+*  Fixes missing screen fading  (title, in-game, credits, options)
+*  Fixes missing sprite flashing  (Kirby, 1-Up, Stars, Apples, Waddle Doo, Wizzer, Scarfy)
+*  Fixes Lololo / Lalala door fading
 *  Fixes bad mountain pixels during credits
 *  Fixes fireball color  (red)
 *  Fixes Kracko eye color, transparency
-*  Fixes missing screen fading  (title, in-game, credits, options)
-*  Fixes missing flashing effects  (Kirby, 1-Up, Stars, Apples, Waddle Doo, Wizzer, Scarfy)
-*  Fixes black screen glitch
+*  Fixes black screen transition flicker
 *  Fixes credits scrolling glitch
-*  Fixes Kirby balloon color  (pink)
+*  Fixes ending Kirby balloon color  (pink)
 *  Fixes credits sky  (yellow)
 *  Fixes kracko's door  (blue pixel)
-
-+  Adds Kirby's Adventure color scheme to hud  [thanks to Rushiomatsu for design]
+*  Fixes small warp star on title  (yellow)
 
 
 
 
 sgb_border
 
-+  Adds Kirby's Star Stacker themed border  [thanks to Rushiomatsu for design]
++  Adds Kirby's Star Stacker themed border  [thanks Rushiomatsu for design]
+
+
+
+//////////////////////////////////////////////////////////////////
+
+
+
+Plus:
+
+
+hud_color
+
++  Adds Kirby's Adventure hud color scheme  [thanks Rushiomatsu for design]
 
 
 
@@ -121,6 +144,29 @@ _______________________________________________
 
 
 Commits:
+
+
+10.3 - mono_graphics updated
+
+     *  fix post-credits flicker
+
+
+
+10.2 - sgb_border updated
+
+     *  fix sgb display, timing, reset mistakes
+
+
+
+10.1 - recolor_objects updated
+
+     *  fix small yellow warp star color on title
+     *  fix falling star direction on cutscenes
+
+
+
+10 - dual_support released
+
 
 
 9.1 - original_hud released
@@ -222,6 +268,11 @@ Visit:
 
 
 
+*  Forum
+   https://www.romhacking.net/forum/index.php?topic=33527
+
+
+
 _______________________________________________
 
 
@@ -256,3 +307,11 @@ Comments:
    - 389c = stage 3  (07 = kaboola)
    - 38a3 = stage 4  (04 = kracko, 09 = kracko)
    - 38aa = stage 5  (05 = ending)
+
+
+   boss hp  (set all to 1 for quick ko)
+   - d093
+   - d39b
+   - d39c
+   - d39d
+   - d39e

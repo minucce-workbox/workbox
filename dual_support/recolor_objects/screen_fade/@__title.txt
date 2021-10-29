@@ -1,0 +1,205 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+;
+;  Wipe palette white
+;
+
+
+screen_fade_title:
+	ld a, (0xcaff)					; non-gbc
+	or a
+	jr nz, @gbc_fade
+
+
+
+@gb:
+	xor a							; white fade
+	ldh (0x47), a
+	ldh (0x48), a
+	ldh (0x49), a
+
+
+; =================================================================
+; =================================================================
+
+
+	ld hl, 0x4000					; unload tiles
+	ld de, 0x8000
+	ld c, 0x02+0x10
+	call 0x20c1
+
+
+	ld hl, 0x4000
+	ld de, 0x8800
+	ld c, 0x0a+0x10
+	call 0x20c1
+
+
+	ld hl, 0x42ac					; gb map
+	ld de, 0x9000
+	ld c, 0x0a+0x10
+	call 0x20c1
+
+
+; =================================================================
+; =================================================================
+
+
+.ifndef DX_REVISED
+
+	jp @exit
+
+.else
+
+	ld hl, 0x8a80					; clear TM
+	ld c, 0x10
+	xor a
+
+
+@@loop1:
+	ldi (hl), a
+
+	dec c
+	jr nz, @@loop1
+
+
+; ----------------------------------------------------------
+; ----------------------------------------------------------
+
+
+	ld hl, 0x89d0
+	ld de, @revised_tm
+	ld c, 0x10
+	xor a
+
+
+@@loop2:
+	ld a, (de)
+	ldi (hl), a
+
+	inc de
+	dec c
+	jr nz, @@loop2
+
+
+	jp @exit
+
+
+
+@revised_tm:
+    .db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x40, 0xC0, 0x60, 0x30
+
+.endif
+
+
+
+; //////////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////////
+
+
+
+@gbc_fade:
+	ld a, 0x80						; reset color index
+	ldh (0x68), a
+	ldh (0x70), a
+
+	ld a, 0xff						; white
+	ld c, 0x20
+
+
+@@loop:
+	ldh (0x69), a					; bgp
+	ldh (0x69), a
+
+	ldh (0x6b), a					; obj
+	ldh (0x6b), a
+
+
+	dec c
+	jr nz, @@loop
+
+
+; ============================================================
+; ============================================================
+
+
+	ld hl, 0x4000					; unload tiles
+	ld de, 0x8000
+	ld c, 0x02
+	call 0x20c1
+
+
+	ld hl, 0x4000
+	ld de, 0x8800
+	ld c, 0x0a
+	call 0x20c1
+
+
+	ld hl, 0x4296
+	ld de, 0x9000
+	ld c, 0x0a
+	call 0x20c1
+
+
+	ld a, 0xff						; vram 1
+	ldh (0x4f), a
+
+
+	ld hl, 0x7ed1					; color map
+	ld de, 0x9800
+	ld c, 0x03
+	call 0x20c1
+
+
+
+.if BUILD_LEVEL >= 2
+
+	ld a, 0x07						; palette 7 = hud color
+
+	ld hl, 0x9c00
+	ld b, 0x40
+
+
+
+@@loop2:
+	ldi (hl), a
+
+	dec b
+	jr nz, @@loop2
+
+.endif
+
+
+
+	xor a							; vram 0
+	ldh (0x4f), a
+
+
+
+; ============================================================
+; ============================================================
+
+
+@exit:
+	ld hl, 0x77f5					; font
+	ld de, 0x8e00
+	ld c, 0x02
+	call 0x20c1
+
+
+	ld hl, 0x650c					; tile map
+	ld de, 0x9800
+	ld c, 0x0f
+	call 0x20c1
+
+
+
+	ld a, 0x06
+
+	ld hl, 0x4054
+	push hl
+
+	jp 0x20d3

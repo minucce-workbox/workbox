@@ -21,7 +21,11 @@
 
 
 
-.definelabel FULL_BUILD, 9
+.ifndef BUILD_LEVEL
+
+	.definelabel BUILD_LEVEL, 9
+
+.endif
 
 
 
@@ -30,20 +34,33 @@
 
 
 
-.if FULL_BUILD >= 1
+.if BUILD_LEVEL >= 1
 
 
 /*	Basic		*/
 
 
-	.include "better_loading/main.txt"
-	.include "credits_dedede/main.txt"
-	.include "double_speed/main.txt"
-
-	.include "recolor_objects/main.txt"
-	.include "sgb_border/main.txt"
+	.include "dual_support/main.txt"
 
 	.include "@__free_space/main.txt"
+
+
+.endif
+
+
+
+; //////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////
+
+
+
+.if BUILD_LEVEL >= 2
+
+
+/*	Plus		*/
+
+
+	;	.include "hud_color"
 
 
 .endif

@@ -1,0 +1,130 @@
+/*
+	Code should be used only for educational, documentation and modding purposes.
+*/
+
+
+
+org 0x6a13, 0x0b
+
+	call @hud_bgp7
+	nop
+
+warnpc 0x6a17
+
+
+
+; //////////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////////
+
+
+
+org 0x7fd0, 0x0b
+
+
+@hud_bgp7:
+	ldh (0x6b), a				; obj 7-4
+	ldh (0x6b), a
+
+
+/*
+	Credit to Rushiomatsu for HUD color design
+*/
+
+	ld a, 0x80 | 0x38			; bgp 7
+	ldh (0x68), a
+
+
+	; background
+	ld a, int(((0x1b << 5) | (0x1e >> 0)) & 0x7f)
+	ldh (0x69), a
+	ld a, int(((0x14 << 2) | (0x1b >> 3)) & 0x7f)
+	ldh (0x69), a
+
+
+	; health
+	ld a, int(((0x13 << 5) | (0x1d >> 0)) & 0x7f)
+	ldh (0x69), a
+	ld a, int(((0x04 << 2) | (0x13 >> 3)) & 0x7f)
+	ldh (0x69), a
+
+
+	; unused
+	ld a, int(((0x13 << 5) | (0x1d >> 0)) & 0x7f)
+	ldh (0x69), a
+	ld a, int(((0x04 << 2) | (0x13 >> 3)) & 0x7f)
+	ldh (0x69), a
+
+
+	; rust
+	ld a, int(((0x03 << 5) | (0x0a >> 0)) & 0x7f)
+	ldh (0x69), a
+	ld a, int(((0x00 << 5) | (0x03 >> 3)) & 0x7f)
+	ldh (0x69), a
+
+
+	ret
+
+
+warnpc 0x8000
+
+
+
+; ##########################################################
+; ##########################################################
+
+
+
+org 0x4a8f, 0x06
+
+	call @credits_hud
+
+warnpc 0x4a92
+
+
+
+; ##########################################################
+; ##########################################################
+
+
+
+org 0x7fe0, 0x06
+
+
+;
+;  Restore normal hud color
+;
+
+
+@credits_hud:
+	ld a, 0x01						; vram 1
+	ldh (0x4f), a
+
+
+	xor a							; palette 0
+
+	ld hl, 0x9c00
+	ld b, 0x40
+
+
+
+@@loop:
+	ldi (hl), a
+
+	dec b
+	jr nz, @@loop
+
+
+
+	xor a							; vram 0
+	ldh (0x4f), a
+
+
+; ==========================================================
+; ==========================================================
+
+
+	ld hl, 0x9800
+	ret
+
+
+warnpc 0x8000

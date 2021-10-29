@@ -1,0 +1,53 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x0100, 0x0
+	ld b, a						; save startup register  (a = 0x11, b = 0x01)
+
+
+
+org 0x0165, 0x0
+	call dual_support_model_check
+
+
+
+; ///////////////////////////////////////////////////////////
+; ///////////////////////////////////////////////////////////
+
+
+
+org 0x1e86, 0x00
+
+	call music_speed_timer
+	nop
+
+warnpc 0x1e8a
+
+
+
+; ############################################################
+; ############################################################
+
+
+
+org 0x191e, 0x0
+
+music_speed_timer:
+	ld a, (0xcaff)				; model
+	or a
+
+
+	ld a, 0xbc					; gb timer
+	jr z, @@exit
+
+
+	ld a, int(0xbc/2)			; gbc = 1/2 speed
+
+
+@@exit:
+	ldh (0x06), a
+	ret
+
+warnpc 0x192f

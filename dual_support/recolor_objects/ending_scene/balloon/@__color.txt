@@ -1,0 +1,121 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+;
+;  Ending balloon palette
+;
+
+
+ending_scene_balloon_color:
+	push de
+
+
+	ld a, (0xcaff)					; gbc only
+	or a
+	jr z, @exit
+
+
+; ====================================================================
+; ====================================================================
+
+
+	ld a, 0x07						; wram 7
+	ldh (0x70), a
+
+
+	ld de, 0xd444					; bg4 -> bg6
+	ld hl, 0xd064
+	call @copy_color
+
+
+	ld de, 0xd4c4
+	ld hl, 0xd0e4
+	call @copy_color
+
+
+	ld de, 0xd544
+	ld hl, 0xd164
+	call @copy_color
+
+
+; ====================================================================
+; ====================================================================
+
+
+	ld a, (0xd406)					; pink  (obj 0) --> bg 6 (0)
+	ld (0xd060), a
+	ld a, (0xd407)
+	ld (0xd061), a
+
+
+	ld a, (0xd486)
+	ld (0xd0e0), a
+	ld a, (0xd487)
+	ld (0xd0e1), a
+
+
+	ld a, (0xd506)
+	ld (0xd160), a
+	ld a, (0xd507)
+	ld (0xd161), a
+
+
+	xor a							; wram 1
+	ldh (0x70), a
+
+
+; ====================================================================
+; ====================================================================
+
+
+@exit:
+	call 0x1e67						; screen on
+	call 0x0670						; fade-in
+
+	pop de
+
+
+
+	ld hl, 0x9be0					; vram ptr
+
+
+
+	ld bc, 0x4a01
+	push bc
+
+	ld a, 0x06
+	jp 0x20d3
+
+
+
+; /////////////////////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////////////////////
+
+
+
+@copy_color:
+	ld c, 0x03
+
+
+
+@@loop:
+	ld a, (de)
+	ldi (hl), a
+	inc e
+
+	ld a, (de)
+	ldi (hl), a
+	inc e
+
+
+	inc e :: inc e
+	inc l :: inc l
+
+
+	dec c
+	jr nz, @@loop
+
+
+	ret

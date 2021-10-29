@@ -1,0 +1,33 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+.relativeinclude off
+
+
+org 0x4000, 0x12
+	.import "dual_support/mono_graphics/tiles/12_4000.bin"
+	; .import "02_4000.bin"
+
+
+
+
+org 0x4000, 0x1a
+	.import "dual_support/mono_graphics/tiles/1a_4000.bin"
+
+
+
+
+org 0x42ac, 0x1a
+	.import "dual_support/mono_graphics/tiles/1a_42ac.bin"
+
+
+
+
+org 0x488d, 0x1a
+	.import "dual_support/mono_graphics/tiles/1a_488d.bin"
+
+
+
+.relativeinclude on

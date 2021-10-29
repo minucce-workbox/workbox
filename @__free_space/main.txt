@@ -5,8 +5,8 @@
 
 org 0x4e00, 0x01
 
-	.include "recolor_objects/@__free_01.txt"
-	.include "sgb_border/@__free_01.txt"
+	.include "dual_support/recolor_objects/@__free_01.txt"
+	.include "dual_support/sgb_border/@__free_01.txt"
 
 warnpc 0x7fe0
 
@@ -17,9 +17,22 @@ warnpc 0x7fe0
 
 
 
+org 0x7ac0, 0x05
+
+	.include "dual_support/double_speed/@__free_05.txt"
+
+warnpc 0x8000
+
+
+
+; ////////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////////
+
+
+
 org 0x5c00, 0x07
 
-	.include "sgb_border/@__free_07.txt"
+	.include "dual_support/sgb_border/@__free_07.txt"
 
 warnpc 0x8000
 
@@ -32,6 +45,6 @@ warnpc 0x8000
 
 org 0x6800, 0x0f
 
-	.include "sgb_border/@__free_0f.txt"
+	.include "dual_support/sgb_border/@__free_0f.txt"
 
 warnpc 0x8000

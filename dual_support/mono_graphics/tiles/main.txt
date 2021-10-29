@@ -1,0 +1,78 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x4293, 0x6
+	call upload_kirby_tiles				; normal game
+
+
+
+org 0x42ab, 0x6
+	call upload_kirby_tiles2			; extra game
+
+
+; =============================================
+; =============================================
+
+
+org 0x430d, 0x6
+	call upload_kirby_tiles
+
+
+
+org 0x4906, 0x6
+	call upload_kirby_tiles
+
+
+
+; #########################################################
+; #########################################################
+
+
+
+org 0x4033, 0x6
+
+upload_kirby_tiles:
+	ld a, (0xcaff)				; gbc = 02
+	or a
+	jr nz, @@exit
+
+
+	ld c, 0x12					; mono = 12
+
+
+@@exit:
+	jp 0x20c1
+
+
+
+; /////////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////////
+
+
+
+upload_kirby_tiles2:
+	ld a, (0xcaff)				; gbc = 02
+	or a
+	jr nz, @@exit
+
+
+	ld c, 0x1a					; mono = 1a
+	ld hl, 0x488d
+
+
+@@exit:
+	jp 0x20c1
+
+
+warnpc 0x4054
+
+
+
+; ################################################################
+; ################################################################
+
+
+
+	.include "data.txt"

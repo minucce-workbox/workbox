@@ -1,0 +1,139 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x1f2d, 0x00
+
+	ld a, int(orga(screen_palette_fade) / 0x4000)
+	ld (0x2100), a
+
+	jp screen_palette_fade
+
+
+
+; #####################################################
+; #####################################################
+
+
+
+;  Write new tilemaps on room loading
+;
+;
+;  -  vblank (on), vram (off), timer (off)
+
+
+load_room_tilemap:
+	ld hl, 0xcb00					; tilemap
+
+
+
+@@load_loop:
+	ldi a, (hl)						; vram high
+	ld d, a
+
+	or a							; 00 = stop
+	ret z
+
+
+	ldi a, (hl)						; vram low
+	ld e, a
+
+
+; =========================================================
+; =========================================================
+
+
+	ld a, (0xcaff)					; gbc only
+	or a
+	jr z, @@normal
+
+
+	push hl							; map src
+	push de							; vram dst
+
+
+	ld bc, 0x0e20					; switch to color data
+	add hl, bc
+
+
+	ld a, 0xff						; vram bank 1
+	ldh (0x4f), a
+	call @@write_tilemap
+
+
+	pop de							; vram dst
+	pop hl							; src ptr
+
+
+	xor a							; vram bank 0
+	ldh (0x4f), a
+
+
+; =========================================================
+; =========================================================
+
+
+@@normal:
+	call @@write_tilemap
+
+
+	jr @@load_loop
+
+
+
+; /////////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////////
+
+
+
+@@write_tilemap:
+	call @wait_vram					; upper row
+	inc e
+	call @wait_vram
+
+
+	ld a, e							; switch vram rows
+	add a, 0x1f
+	ld e, a
+
+
+	call @wait_vram					; lower row
+	inc e
+	call @wait_vram
+
+
+	ret
+
+
+
+; /////////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////////
+
+
+
+@wait_vram:
+	di								; avoid rare irq
+
+
+
+@@loop:
+	ldh a, (0x41)					; wait blanking
+	and a, 0x02
+	jr nz, @@loop
+
+
+; ==========================================================
+; ==========================================================
+
+
+	ldi a, (hl)						; write vram
+	ld (de), a
+
+	reti
+
+
+; nop #53
+
+
+warnpc 0x1fab

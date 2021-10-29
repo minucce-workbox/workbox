@@ -1,0 +1,145 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+;
+;  Upload sgb border
+;
+
+
+sgb_border:
+	ld a, (0xcafe)
+	or a
+	jr nz, @@exit
+
+
+	call sgb_detect
+	jp z, @@exit
+
+
+	inc a						; sgb flag
+	ld (0xcafe), a
+
+
+	call sgb_init
+
+
+; ============================================================
+; ============================================================
+
+
+	call @border_upper			; load tiles 1  (13*8 + 1)
+
+	ld bc, 0x9900				; upload chr
+	call sgb_upload
+
+
+
+	call @border_lower			; load tiles 2
+
+	ld bc, 0x9901
+	call sgb_upload
+
+
+
+	call @border_tilemap		; load tilemap  (14*8 + 1)
+
+	ld bc, 0xa100
+	call sgb_upload
+
+
+	ld a, 0x01					; bg on, lcd off
+	ldh (0x40), a
+
+
+; ========================================================
+; ========================================================
+
+
+@@wipe:
+	ld hl, 0x9000				; wipe tiles
+	ld b, 0x10
+	xor a
+
+
+@@wipe_loop1:
+	ldi (hl), a
+	dec b
+	jr nz, @@wipe_loop1
+
+
+
+	ld hl, 0x9800				; wipe tilemap
+
+
+@@wipe_loop2:
+	ldi (hl), a
+
+	bit 2, h
+	jr z, @@wipe_loop2
+
+
+
+@@exit0:
+	ld bc, 0xb900				; unlock screen  (17*8 + 1)
+	call sgb_upload
+	call sgb_command
+
+
+; ========================================================
+; ========================================================
+
+
+@@exit:
+	ld a, 0x05
+
+	ld hl, 0x4c4a
+	push hl
+
+	jp 0x20d3
+
+
+
+; ////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////
+
+
+
+@border_upper:
+	ld a, int(orga(sgb_border_upper) / 0x4000)
+
+	ld hl, sgb_border_upper
+	push hl
+
+	jp 0x20d3+3
+
+
+
+; ////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////
+
+
+
+@border_lower:
+	ld a, int(orga(sgb_border_lower) / 0x4000)
+
+	ld hl, sgb_border_lower
+	push hl
+
+	jp 0x20d3+3
+
+
+
+; ////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////
+
+
+
+@border_tilemap:
+	ld a, int(orga(sgb_border_tilemap) / 0x4000)
+
+	ld hl, sgb_border_tilemap
+	push hl
+
+	jp 0x20d3+3

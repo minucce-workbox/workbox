@@ -1,0 +1,37 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+org 0x7e27, 0x06
+	call upload_mono_map
+
+
+
+org 0x7e78, 0x06
+	call upload_mono_map
+
+
+
+; ################################################################
+; ################################################################
+
+
+
+org 0x401d, 0x6
+
+
+upload_mono_map:
+	ld a, (0xcaff)
+	or a
+	jr nz, @@exit
+
+
+	pop af						; skip extra gbc tiles
+
+
+@@exit:
+	jp 0x20c1
+
+
+warnpc 0x4033

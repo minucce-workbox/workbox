@@ -1,0 +1,71 @@
+/*
+	Code should be used only for educational, documentation and modding purposes
+*/
+
+
+;
+;  Yellow small star  (Kirby orbiting)
+;
+
+
+org 0x7f80, 0xb
+	db 0xf8, 0xf8, 0x08, 0x10|0x28|0x01		; color
+
+
+
+org 0x7f80, 0x1b
+	db 0xf8, 0xf8, 0xa2, 0x01|0x20			; mono
+
+
+
+; /////////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////////
+
+
+
+;
+;  Yellow small star  (Kirby orbiting)
+;
+
+
+org 0x7f84, 0xb
+	db 0xf4, 0xfc, 0x08, 0x10|0x28|0x01		; color
+
+
+
+org 0x7f84, 0x1b
+	db 0xf4, 0xfc, 0x82, 0x01|0x20			; mono
+
+
+
+warnpc 0x7fa0
+
+
+
+; #######################################################
+; #######################################################
+
+
+
+org 0x6127, 0x08
+	db 0x80, 0x7f							; title - right side
+
+
+
+org 0x612d, 0x08
+	db 0x80, 0x7f							; title - left side
+
+
+
+org 0x406e, 0x08
+	db 0x84, 0x7f							; stage 1 - falling
+
+
+
+org 0x40b2, 0x08
+	db 0x84, 0x7f							; stage 3 - falling
+
+
+
+org 0x48f2, 0x08
+	db 0x84, 0x7f							; stage 5 - falling
