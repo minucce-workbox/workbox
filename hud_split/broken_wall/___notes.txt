@@ -1,0 +1,4 @@
+Screen will flicker when destroying walls
+
+
+Wait for nmi instead of turning off screen

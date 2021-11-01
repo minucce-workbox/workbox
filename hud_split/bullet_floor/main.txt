@@ -1,0 +1,17 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+%org($a5b8, $0b)
+	cmp #$8f					; normal bullets
+
+
+
+%org($a9ec, $0b)
+	cmp #$8e					; ed-209 bullets
+
+
+
+%org($a91c, $0b)
+	cmp #$8f					; rifle bullets

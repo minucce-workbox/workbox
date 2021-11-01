@@ -1,0 +1,20 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+
+vram_screen:
+	tay
+
+
+	lda $0a					; display on
+	ora #$18
+	sta $0a
+
+
+	sta $2001
+
+
+	tya
+	rts

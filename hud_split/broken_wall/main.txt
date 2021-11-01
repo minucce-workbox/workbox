@@ -1,0 +1,22 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+;
+;  Broken wall = keep screen on
+;
+
+
+%org($bfad, $0a)
+	jsr wait_vblank_active
+
+
+
+%org($bfc1, $0a)
+	jsr $da21					; draw hud
+
+
+
+%org($95df, $07)
+	db $00						; strange junk sprite

@@ -1,0 +1,90 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+%org($e1fc, $1f)
+	sta $e000					; reset irq
+	pha
+
+	txa
+	pha
+
+
+	lda $19						; old bank
+	pha
+
+
+	lda #$1d					; bank swap
+	jsr $c33e
+
+	jsr hud_split_bottom
+
+
+; ===============================================
+; ===============================================
+
+
+	pla							; old bank
+	jsr $c33e
+
+
+	pla
+	tax
+
+
+	pla
+	rts
+
+
+
+;	nop #12
+
+
+warnpc $e23a
+
+
+
+; ##########################################################
+; ##########################################################
+
+
+
+%org($c33e, $1e)
+	sta $19
+	ldx #$06
+
+
+	sei							; shorter irq blocking
+	stx $8000
+	sta $8001
+	cli
+
+
+	rts
+
+
+warnpc $c34b
+
+
+
+; ////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////////
+
+
+
+%org($c34b, $1e)
+	sta $1a
+	ldx #$07
+
+
+	sei							; shorter irq blocking
+	stx $8000
+	sta $8001
+	cli
+
+
+	rts
+
+
+warnpc $c358

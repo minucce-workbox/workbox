@@ -1,0 +1,25 @@
+;
+;  asar
+;  -  https://github.com/RPGHacker/asar
+;
+
+
+
+norom
+!banksize = $2000
+
+
+
+	incsrc "helper.txt"
+
+
+
+; ###########################################################
+; ###########################################################
+
+
+
+	incsrc "hud_split/main.txt"
+
+
+	incsrc "@__free_space/main.txt"

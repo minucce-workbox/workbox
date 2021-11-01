@@ -1,0 +1,16 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+;
+;  Elevator scrolling = show sprites at top
+;
+
+
+%org($c6c3, $1e)
+
+	jsr hud_split_sprite_offscreen
+	nop
+
+warnpc $c6c7

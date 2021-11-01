@@ -1,0 +1,4 @@
+Loading room to ED-209 boss fight shows corrupted tiles
+
+
+Don't swap out CHR tiles until fading done

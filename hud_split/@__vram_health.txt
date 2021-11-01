@@ -1,0 +1,44 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+vram_health:
+	tay
+
+
+	lda #$22
+	sta $2006
+
+	lda #$eb
+	sta $2006
+
+
+	ldx $bb					; health
+
+
+	lda .bar+0,x :  sta $2007
+	lda .bar+1,x :  sta $2007
+	lda .bar+2,x :  sta $2007
+	lda .bar+3,x :  sta $2007
+
+	lda .bar+4,x :  sta $2007
+	lda .bar+5,x :  sta $2007
+	lda .bar+6,x :  sta $2007
+	lda .bar+7,x :  sta $2007
+
+	lda .bar+8,x :  sta $2007
+	lda .bar+9,x :  sta $2007
+	lda .bar+10,x :  sta $2007
+
+
+	tya
+	rts
+
+
+; ===========================================================
+; ===========================================================
+
+
+.bar:
+	incbin "@__vram_health_bar.bin"

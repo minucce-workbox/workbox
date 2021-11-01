@@ -1,0 +1,37 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+;
+;  Clean sprite array
+;
+
+
+%org($c03e, $1e)
+
+clean_sprite_table:
+	ldx #$00
+
+
+.loop:
+	lda #$f0
+	sta $0200,x
+
+	lda #$00
+	sta $0201,x
+	sta $0202,x
+	sta $0203,x
+
+	inx
+	inx
+	inx
+	inx
+	bne .loop
+
+	rts
+
+	nop #3
+
+
+warnpc $c05a

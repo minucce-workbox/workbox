@@ -1,0 +1,203 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+nmi_expansion:
+	lda $44						; no hud
+	bne .draw_hud
+
+
+	jsr hud_split_none
+	jmp .vram_upload
+
+
+
+.draw_hud:
+	jsr hud_split_upper
+
+
+; ========================================================
+; ========================================================
+
+
+.vram_upload:
+	lda $64						; function 0-7
+
+
+
+.type_00:
+	lsr
+	bcc .type_01
+
+	jsr vram_cgram
+
+
+
+.type_01:
+	lsr
+	bcc .type_02
+
+	pha
+	jsr $daf5					; scrolling
+	pla
+
+
+
+.type_02:
+	lsr
+	bcc .type_03
+
+	pha
+	jsr $db73					; ???
+	pla
+
+
+
+.type_03:
+	lsr
+	bcc .type_04
+
+	pha
+	jsr $dbac					; elevator door
+	pla
+
+
+
+.type_04:
+	lsr
+	bcc .type_05
+
+	pha
+	jsr vram_ed209				; ed-209 room
+	pla
+
+
+
+.type_05:
+	lsr
+	bcc .type_06
+
+	pha
+	jsr vram_05					; ???
+	pla
+
+
+
+.type_06:
+	lsr
+	bcc .type_07
+
+	pha
+	jsr vram_ed209_1a			; ed-209 retreat
+	pla
+
+
+
+.type_07:
+	lsr
+	bcc .vram_upload2
+
+	pha
+	jsr $e13c					; target range
+	pla
+
+
+; =================================================
+; =================================================
+
+
+.vram_upload2:
+	lda $65						; function 8-15
+
+
+
+.type_08:
+	lsr
+	bcc .type_09
+
+	jsr vram_screen
+
+
+
+.type_09:
+	lsr
+	bcc .type_0a
+
+	jsr vram_text
+
+
+
+.type_0a:
+	lsr
+	bcc .type_0b
+
+	jsr vram_score
+
+
+
+.type_0b:
+	lsr
+	bcc .type_0c
+
+	jsr vram_health
+
+
+
+.type_0c:
+	lsr
+
+	; bcc .type_0d
+	; jsr vram_time
+
+
+
+.type_0d:
+	lsr
+	bcc .type_0e
+
+	jsr vram_ammo
+
+
+
+.type_0e:
+	lsr
+
+	; bcc .type_0f
+	; jsr vram_functions
+
+
+
+.type_0f:
+	lsr
+	bcc .vram_done
+
+	pha
+	jsr $e0c9					; gun icon
+	pla
+
+
+; ================================================
+; ================================================
+
+
+.vram_done:
+	jsr hud_split_reset			; scroll registers
+
+
+	lda #$00					; reset commands
+	sta $64
+	sta $65
+
+
+	rts
+
+
+
+; /////////////////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////////////////
+
+
+
+.run_command:
+	jmp ($005a)

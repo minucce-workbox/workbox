@@ -1,0 +1,19 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+	incsrc "bomb_floor/main.txt"
+	incsrc "broken_wall/main.txt"
+	incsrc "bullet_floor/main.txt"
+	incsrc "cutscene_mouth/main.txt"
+	incsrc "ed-209_loading/main.txt"
+	incsrc "elevator_doors/main.txt"
+	incsrc "grenade_floor/main.txt"
+	incsrc "screen_reset/main.txt"
+	incsrc "split_sprites/main.txt"
+	incsrc "walking_reset/main.txt"
+	incsrc "warehouse_lift/main.txt"
+
+
+	incsrc "misc.txt"

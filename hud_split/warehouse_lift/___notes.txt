@@ -1,0 +1,4 @@
+Player sprites disappear too early
+
+
+Raise clipping position to show more tile

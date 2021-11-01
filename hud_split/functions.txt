@@ -1,0 +1,3 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;

@@ -1,0 +1,4 @@
+When elevator doors open, parts of player sprite disappear
+
+
+Correctly clear unwanted sprites only

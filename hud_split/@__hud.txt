@@ -1,0 +1,156 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+hud_split_none:
+	sta $e000					; no irq
+
+	jsr swap_chr_normal
+
+
+; ===========================================================
+; ===========================================================
+
+
+	lda $0a						; screen
+	sta $2001
+
+	rts
+
+
+
+; ############################################################
+; ############################################################
+
+
+
+hud_split_upper:
+	sta $e000					; no irq
+
+	jsr swap_chr_hud
+
+
+	lda $0a						; screen = no sprites, bg on  (mmc3 irq)
+	and #$ef
+	sta $2001
+
+
+	lda #$01					; hud active
+	sta $44
+
+
+	rts
+
+
+
+; ############################################################
+; ############################################################
+
+
+
+swap_chr_hud:
+	lda #$00					; chr swap  (0000-07ff)
+	sta $8000
+
+	lda #$04					; bank 04
+	sta $8001
+
+
+	lda #$01					; chr swap  (0800-0fff)
+	sta $8000
+
+	lda #$02					; bank 02
+	sta $8001
+
+	rts
+
+
+
+; ////////////////////////////////////////////////////
+; ////////////////////////////////////////////////////
+
+
+
+swap_chr_normal:
+	ldx #$05 : stx $8000
+	lda $18  : sta $8001
+
+	ldx #$04 : stx $8000
+	lda $17  : sta $8001
+
+	ldx #$03 : stx $8000
+	lda $16  : sta $8001
+
+	ldx #$02 : stx $8000
+	lda $15  : sta $8001
+
+	ldx #$01 : stx $8000
+	lda $14  : sta $8001
+
+	ldx #$00 : stx $8000
+	lda $13  : sta $8001
+
+
+	rts
+
+
+
+; ############################################################
+; ############################################################
+
+
+
+hud_split_reset:
+	lda #$00					; 0,0
+	sta $2006
+	sta $2006
+
+
+
+	lda $44						; no hud
+	bne .draw_hud
+
+
+	lda $0c						; x,y = game
+	sta $2005
+
+	lda $0d
+	sta $2005
+
+	lda $09						; nametable
+	sta $2000
+
+	rts
+
+
+; =============================================================
+; =============================================================
+
+
+.draw_hud:
+	lda #$00					; status bar  (x,y)
+	sta $2005
+
+
+	lda #$c0
+	sta $2005
+
+
+	lda $09						; nametable 0
+	and #$fc
+	sta $2000
+
+
+	;
+	;  IRQ latch must be done -after- vram address changes finished  (VBlank)
+	;  -  A12 = every PPU & $1000 triggers scanline counter
+	;
+
+	lda #$1d-3					; split-point = game world  (double irq)
+	sta $c000
+	sta $c001
+	sta $e001
+
+
+	rts

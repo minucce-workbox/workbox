@@ -1,0 +1,4 @@
+When cutscene ends, mouth randomly stays open
+
+
+Time sequence correctly using fixed, non-random values

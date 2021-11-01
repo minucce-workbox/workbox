@@ -1,0 +1,4 @@
+Screen can show wrong colors after transition
+
+
+Correctly time screen operations

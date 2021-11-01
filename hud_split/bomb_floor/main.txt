@@ -1,0 +1,22 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+%org($a747, $0b)
+
+bomb_floor_check:
+
+	cpy #$8f					; y-limit
+	bcs .check
+
+	jsr $c460					; tile type
+	cmp #$01
+	beq .check
+
+warnpc $a752
+
+
+
+%org($a755, $0b)
+.check:

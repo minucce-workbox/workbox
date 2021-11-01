@@ -1,0 +1,406 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+hud_split_bottom:
+	lda $2002					; latch reset
+
+
+	tya
+	pha
+
+
+
+	ldx $44						; no hud
+	bne .game_window_0
+
+	jmp .exit
+
+
+
+; //////////////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////////////
+
+
+
+.game_window_0:
+	dex
+	bne .game_window
+
+
+	inc $44						; game window
+
+
+	ldx #$05					; game has unstable irq timing -- wait for next line
+	nop
+
+
+..loop:
+	dex
+	bne ..loop
+
+
+
+	lda #$00					; real irq next line  (past 260)
+	sta $c000					; latch - reload - irq on
+	sta $c001
+	sta $e001
+
+
+
+	lda $44						; stable timing  (sei - cli problem)
+
+..wait:
+	cmp $44
+	beq ..wait
+
+
+	jmp .exit
+
+
+
+; //////////////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////////////
+
+
+
+.game_window:
+	dex
+	bne .lower_hud_0
+
+
+	; note: disable rendering can corrupt oam  (must be timed right before h-blank!)
+	;       reset ppu drawing instead to avoid garbage lines
+
+
+	lda #$22					; [---- xx--] * $400
+	sta $2006
+
+	lda #$80					; [YY-- -yyy] * $100
+	sta $2005
+
+
+	ldx #$00
+	ldy #$c0
+	nop
+
+
+	stx $2005					; h-blank  (#)
+	sty $2006
+
+
+; ===========================================================
+; ===========================================================
+
+
+	ldx #$0c					; manual h-blank wait  (20 = extra line; 0c = align but irq jitter ?)
+	; nop
+
+
+..loop:
+	dex
+	bne ..loop
+
+
+	lda #$af-2					; split-point = lower hud
+	sta $c000
+	sta $c001
+	sta $e001					; irq on
+
+
+	inc $44						; lower hud
+
+
+	jsr swap_chr_normal
+
+
+; ===========================================================
+; ===========================================================
+
+
+	lda $09						; nametable
+	and #$03
+	asl
+	asl
+	sta $2006
+
+
+	lda $0d						; negative scroll  (wall destroy)
+	bmi .negative_ypos
+
+
+
+.positive_ypos:
+	and #$07					; ypos  (0-7)
+	ora #$00					; intentional sync delay
+	sta $2005
+
+	lda $0c						; tile #  (xpos / 8)
+	lsr
+	lsr
+	lsr
+
+	clc							; intentional sync delay
+	adc #$00
+	tax
+
+	jmp .screen_on
+
+
+
+.negative_ypos:
+	and #$07					; ypos  (0-7)
+	ora #$c0					; 23xx
+	sta $2005
+
+
+	lda $0c						; tile #  (xpos / 8)
+	lsr
+	lsr
+	lsr
+
+	clc
+	adc #$a0					; simulate black lines
+	tax
+
+	jmp .screen_on				; intentional sync delay
+
+
+; ===========================================================
+; ===========================================================
+
+
+.screen_on:
+	ldy $0a						; bg + sprites on
+
+
+	lda $0c						; xpos  (0-7)
+	and #$07
+
+	sty $2001					; h-blank  (#)
+	sta $2005
+	stx $2006
+
+
+	jmp .exit
+
+
+
+; //////////////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////////////
+
+
+
+.lower_hud_0:
+	dex
+	bne .lower_hud
+
+
+	inc $44						; game window
+	nop #4						; manual h-blank timing
+
+
+	lda #$00					; real irq next line  (past 260)
+	sta $c000
+	sta $c001
+	sta $e001
+
+
+; ----------------------------------------------------------
+; ----------------------------------------------------------
+
+
+	lda $00						; temp
+	pha
+
+	lda $01						; temp
+	pha
+
+
+
+.stage1:
+	lda #$c0					; 22c0
+	ldy #$05					; ypos  (0-7)
+
+
+	ldx $66
+	beq .cache
+
+
+
+.stage2:
+	dex
+	beq .cache
+
+
+
+.stage3:
+	dex
+	bne .stage4
+
+
+	ldx $8f						; 00 = upper floor
+	bne .cache
+
+	ldy #$00
+	bne .cache
+
+
+
+.stage4:
+	ldy #$00
+
+	dex
+	bne .stage5
+
+
+	ldx $90						; ed-209
+	cpx #$80
+	bne .cache
+
+	ldx $80						; room scroll
+	bne .cache
+
+	lda #$e0					; 22e0
+	bne .cache
+
+
+
+.stage5:
+	ldy #$05
+
+	dex
+	beq .cache
+
+
+
+.stage6:
+	ldy #$00
+
+	ldx $8f						; ed-209
+	cpx #$18
+	bne .cache
+
+
+	lda #$e0					; 22e0
+	ldy #$00
+
+
+
+.cache:
+	sta $00
+	sty $01
+
+	
+; ----------------------------------------------------------
+; ----------------------------------------------------------
+
+
+	lda $44						; stable timing  (sei - cli problem)
+
+
+..wait:
+	cmp $44
+	beq ..wait
+
+
+
+	pla
+	sta $01
+
+	pla
+	sta $00
+
+
+	jmp .exit
+
+
+
+; //////////////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////////////
+
+
+
+.lower_hud:
+	dex
+	bne .bottom_hud
+
+
+	inc $44						; bottom hud
+
+
+	ldx #$13					; manual h-blank wait
+	nop
+
+
+..loop:
+	dex
+	bne ..loop
+
+
+; --------------------------------------------------------------
+; --------------------------------------------------------------
+
+
+	ldy #$22					; nametable 0  [---- NN--]
+	sty $2006
+
+
+	ldy $00						; ppu 22xx
+
+
+	lda $01						; yyy = 0-7   [YY---yyy]
+	ora #$80					; YY = $200
+	sta $2005
+
+
+	lda #$00					; x = 0
+
+
+	sta $2005					; (# h-blank)
+	sty $2006
+
+
+; --------------------------------------------------------------
+; --------------------------------------------------------------
+
+
+	jsr swap_chr_hud
+
+
+	lda #$10					; split-point = bottom hud
+	sta $c000
+	sta $c001
+
+
+	sta $e001					; irq on
+	bne .exit
+
+
+
+; //////////////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////////////
+
+
+
+.bottom_hud:
+	lda #$01
+	sta $44
+
+
+	lda #$14					; bg off, sprites on  (avoid oam corruption flicker)
+	sta $2001
+
+
+
+; //////////////////////////////////////////////////////////////
+; //////////////////////////////////////////////////////////////
+
+
+
+.exit:
+	pla
+	tay
+
+	rts

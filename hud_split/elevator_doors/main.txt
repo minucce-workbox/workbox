@@ -1,0 +1,81 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+;
+;  Elevator doors = show correct sprites
+;
+
+
+%org($d3b1, $1e)
+
+elevator_door_start:
+	stx $05e3
+
+	lda #$ff
+	sta $05e5
+
+	lda #$80
+	sta $05e4
+
+	asl							; lda #$00
+	sta $05e6
+	sta $05e8
+
+	jsr $d4ad
+
+
+; =============================================================
+; =============================================================
+
+
+	ldx #$20					; ending player frame
+
+
+	lda $6f						; walking frame  (1,3 = extra tile)
+	lsr
+
+
+	lda #$f0
+	bcs .next
+
+
+.loop:
+	sta $0200,x
+
+
+.next:
+	inx
+	inx
+	inx
+	inx
+	bne .loop
+
+
+; =============================================================
+; =============================================================
+
+
+	lda #$00
+	sta $11
+
+	lda #$0d
+	jsr $c181
+
+	jmp $c000
+
+
+warnpc $d3e7
+
+
+
+; ///////////////////////////////////////////////////////////
+
+
+
+%org($dbc4, $1e)
+
+	jsr elevator_sprite_clean
+
+warnpc $dbc7

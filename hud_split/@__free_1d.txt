@@ -1,0 +1,18 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+	incsrc "@__nmi.txt"
+	incsrc "@__irq.txt"
+	incsrc "@__hud.txt"
+
+
+	incsrc "@__vram_cgram.txt"
+
+
+	incsrc "@__vram_screen.txt"
+	incsrc "@__vram_score.txt"
+	incsrc "@__vram_text.txt"
+	incsrc "@__vram_health.txt"
+	incsrc "@__vram_ammo.txt"

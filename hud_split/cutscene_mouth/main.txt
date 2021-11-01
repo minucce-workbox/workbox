@@ -1,0 +1,17 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+;
+;  Close mouth after animation
+;
+
+
+%org($ae26, $0c)
+	lda $12					; animation counter
+
+
+
+%org($ae4e, $0c)
+	cmp #$68				; close mouth

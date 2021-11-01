@@ -1,0 +1,24 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+;
+;  ED-209 loading = don't swap chr early
+;
+
+
+%org($d49d, $1e)
+
+	jmp $d4a5
+	nop #5
+
+warnpc $d4a5
+
+
+
+%org($d62d, $1e)
+
+	jsr chr_swap_ed209
+
+warnpc $d630

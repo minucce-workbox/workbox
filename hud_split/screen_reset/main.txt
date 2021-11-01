@@ -1,0 +1,36 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+;
+;  Screen on = wait for refresh
+;
+
+
+%org($c1c9, $1e)
+	lda $09						; nmi on
+	ora #$80
+	sta $2000
+
+	jmp wait_vblank
+
+
+warnpc $c1d3
+
+
+
+; #################################################################
+; #################################################################
+
+
+
+%org($b3d7, $0c)
+	lda #$01					; fade-out = status bar on
+
+
+
+%org($c108, $1e)
+	jsr $c03e					; fade-in = no screen on
+								; + clear oam garbage
+

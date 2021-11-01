@@ -1,0 +1,35 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+vram_text:
+	tay
+
+
+	lda $b7						; print mode
+	and #$03
+	cmp #$01
+	bne .exit
+
+
+	lda $ba
+	sta $2006
+
+	lda $b9
+	sta $2006
+
+	lda $b8						; tile #
+	sta $2007
+
+
+	inc $b9						; cursor
+	bne .exit
+
+	inc $ba
+
+
+
+.exit:
+	tya
+	rts

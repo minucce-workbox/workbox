@@ -1,0 +1,38 @@
+;
+;  Code should be used only for educational, documentation and modding purposes
+;
+
+
+vram_ammo:
+	tay
+
+
+	lda #$23
+	sta $2006
+
+	lda #$5b
+	sta $2006
+
+
+	lda $5df					; weapon type
+	and #$03
+	sta $61
+
+	asl
+	clc
+	adc $61
+	tax
+
+
+	lda $5f4,x					; count
+	sta $2007
+
+	lda $5f3,x
+	sta $2007
+
+	lda $5f2,x
+	sta $2007
+
+
+	tya
+	rts
