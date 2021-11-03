@@ -5,6 +5,16 @@
 
 org 0x0100, 0x0
 	ld b, a						; save startup register  (a = 0x11, b = 0x01)
+	jp 0x0
+
+
+
+org 0x0000, 0x0
+	xor a
+	ld (0xcafe), a				; clear sgb flag
+	ld (0xcafb), a				; clear init flag
+	jp 0x150
+
 
 
 

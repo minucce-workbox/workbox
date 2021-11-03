@@ -49,10 +49,6 @@ sgb_border:
 	call sgb_upload
 
 
-	ld a, 0x01					; bg on, lcd off
-	ldh (0x40), a
-
-
 ; ========================================================
 ; ========================================================
 
@@ -81,10 +77,26 @@ sgb_border:
 
 
 
-@@exit0:
+	ld a, 0x81					; lcd on, bg on  (required to unfreeze screen?)
+	ldh (0x40), a
+	call sgb_command_wait
+
+
 	ld bc, 0xb900				; unlock screen  (17*8 + 1)
-	call sgb_upload
 	call sgb_command
+	call sgb_command_wait
+
+
+
+@@loop:
+	ldh a, (0x41)				; wait vblank
+	and a, 0x03
+	cp a, 0x01
+	jr nz, @@loop
+
+
+	xor a
+	ldh (0x40), a
 
 
 ; ========================================================

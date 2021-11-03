@@ -2,66 +2,12 @@ Kirby's Dream Land DX - Fluffy Repair Service
 
 
 Latest:
-2021-10-29
+2021-11-03
 
 
 
 Graphics and engine fixes for "Kirby's Dream Land DX Color hack"
 -  Also adds SGB border and GB mono support
-
-
-
-//////////////////////////////////////////////////////////////////
-
-
-
-Option 1: Kirby's Dream Land DX  (GreenAndACat)
-
-
--  Start with an original Kirby's Dream Land (USA, Europe) rom
-
-
-
--  First apply patch 1.3 to your rom
-   https://www.romhacking.net/hacks/5213/
-
-
-
--  Next apply one of these patches:
-     DX Normal/basic.ips
-     DX Normal/plus.ips
-
-
-
-//////////////////////////////////////////////////////////////////
-
-
-
-Option 2: Kirby's Dream Land DX - Revised  (ShadowOne333)
-
-
--  Start with an original Kirby's Dream Land (USA, Europe) rom
-
-
-
--  First apply patch 1.0
-   https://www.romhacking.net/hacks/5635/
-
-
-
--  Next apply one of these patches:
-     DX Revised/basic.ips
-     DX Revised/plus.ips
-
-     DX Revised/basic - revised hud.ips
-     DX Revised/plus - revised hud.ips
-
-
-
--  Lastly optional add-ons:
-
-   *  DX Revised/add-on/lcd_pink
-      -  Changes pink to work on real GBC LCD hardware
 
 
 
@@ -116,13 +62,15 @@ recolor_objects
 *  Fixes credits sky  (yellow)
 *  Fixes kracko's door  (blue pixel)
 *  Fixes small warp star on title  (yellow)
+*  Fixes small warp star direction during cutscenes
 
 
 
 
 sgb_border
 
-+  Adds Kirby's Star Stacker themed border  [thanks Rushiomatsu for design]
++  Adds Kirby's Star Stacker themed border  [credit to Rushiomatsu for design!]
++  Hardware compatible  [credit to Jdoesstuff for assistance!]
 
 
 
@@ -135,7 +83,7 @@ Plus:
 
 hud_color
 
-+  Adds Kirby's Adventure hud color scheme  [thanks Rushiomatsu for design]
++  Adds Kirby's Adventure hud color scheme  [credit to Rushiomatsu for design!]
 
 
 
@@ -144,6 +92,12 @@ _______________________________________________
 
 
 Commits:
+
+
+10.4 - sgb_border updated
+
+     *  hardware compatibility  (thanks Jdoesstuff!)
+
 
 
 10.3 - mono_graphics updated
