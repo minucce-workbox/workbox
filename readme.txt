@@ -1,8 +1,77 @@
-Bugs Bunny Crazy Castle 2 DX - Fluffy Repair Service
+Ys - Fluffy Repair Service
 
 
 Latest:
-2021-12-03
+2021-12-04
+
+
+
+___________________________________________________
+
+
+
+Basic:
+
+
+dios_shield
+*  Fixes graphics corruption with Dios' Armor Shop
+   #  credit to SomeOldGuy
+
+
+
+hud_split
+*  Fix status bar border
+
+
+
+portrait_colors
+*  Fixes graphics corruption in Olman's shop
+   #  credit to Fray
+
+
+*  Fixes bad pixels in portrait frames
+
+
+
+screen_switch
+*  Fix V-Blank waiting problems
+
+
+
+scroll_border
+*  Fix scanline scrolling visual errors
+
+
+
+sprite_border
+*  Fix sprite clipping at hud border
+
+
+
+start_hud
+*  Fix graphics corruption when starting new game
+
+
+
+title_screen
+*  Fix stray pixels
+
+
+
+zepic_roof
+*  Fixes roof tiles in Zepic Village
+   #  credit to Fray
+
+
+___________________________________________________
+
+
+
+Plus:
+
+
+deadzone_scroll
+*  Scroll game window earlier
 
 
 
@@ -10,76 +79,111 @@ Latest:
 
 
 
-Bugs Bunny Crazy Castle 2 DX  (FroggestSpirit):
-
-
-0) Use original rom
-   Bugs Bunny Crazy Castle 2, The (USA).gb
-
-
-
-1) Apply patch 1.0
-   https://www.romhacking.net/hacks/944/
-
-
-
-2) Then dx_basic.ips
-
-
-
-______________________________________________________________
-
-
-
-Basic:
-
-
-gbc_compatible
-
-*  Fixes vram graphics corruption
-   Fixes missing ending scene
-   Fixes missing warp fade effect
-   Fixes black flicker
-
-
-_______________________________________________
-
-
-
 Commits:
 
-2 - gbc_compatible updated
 
-    *  warp fade effect
-    *  black flicker
-
+11 - Ys title released  (English, Spanish)
+    #  credit to SomeOldGuy
 
 
-1 - gbc_compatible released
+
+10 - portrait_colors released
+    #  credit to Fray
 
 
-_______________________________________________
+
+9 - zepic_roof released
+    #  credit to Fray
+
+
+
+8 - dios_shield released
+    #  credit to SomeOldGuy
+
+
+
+7.4b - Emulator compatibility
+    *  hud_split updated
+
+
+
+7.4a - Redo plus patches
+    *  Include deadzone_scroll
+
+
+
+7.4 - hud_split updated
+    *  Fix post-vblank detection crashes
+
+
+
+7.3 - title_screen renamed
+    *  pixel_cleanup split into japan, english
+    *  Work done on English Title Screen
+
+
+7.2 - sprite_border updated
+    *  Fix sprite clipping on right border
+
+
+7.1 - scroll_border updated
+    *  Fix crash on pixel 255
+
+
+7 - deadzone_scroll released
+
+
+6.1 - scroll_border updated
+    *  Fix right-side screen  (original)
+
+
+6 - start_hud released
+
+
+5 - screen_switch released
+
+
+4 - scroll_border released
+
+
+3 - sprite_border released
+
+
+2 - hud_split released
+
+
+1 - pixel_cleanup released
+
+
+
+//////////////////////////////////////////////////////////////////
 
 
 
 Visit:
 
-*  Source Code
-   https://github.com/minucce-yard/Bugs_Bunny_Crazy_Castle_2_GB
+
+*  Source code
+   https://github.com/minucce-yard/Ys_NES/tree/Service_Repair
 
 
 *  Discuss
    https://www.romhacking.net/forum/index.php?topic=33527.0
 
 
-_______________________________________________
+_________________________________________________________
 
 
 
 Comments:
 
+
 *  Cheats
 
-   c380 = level  (00-1c)
-   c3b8 = keys   (00-08)
-   c3cd = arrow  (00-08)
+  358 = hp
+  359 = max hp
+
+  35a-35b = exp
+  35c-35d = max exp
+
+  35e-35f = gold
